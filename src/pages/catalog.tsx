@@ -1,7 +1,7 @@
 import { Breadcrumbs } from '../components/breadcrumbs';
 import { CatalogAsideFilter } from '../components/catalog/catalog-aside-filter';
 import { CatalogBanner } from '../components/catalog/catalog-banner';
-import { CatalogCards } from '../components/catalog/catalog-cards';
+import { CatalogItemsList } from '../components/catalog/catalog-items-list';
 import { Footer } from '../components/footer';
 import { Header } from '../components/header';
 
@@ -60,19 +60,7 @@ export function CatalogPage ():JSX.Element {
                       </div>
                     </form>
                   </div>
-                  <CatalogCards/>
-                  <div className="pagination">
-                    <ul className="pagination__list">
-                      <li className="pagination__item"><a className="pagination__link pagination__link--active" href="1">1</a>
-                      </li>
-                      <li className="pagination__item"><a className="pagination__link" href="2">2</a>
-                      </li>
-                      <li className="pagination__item"><a className="pagination__link" href="3">3</a>
-                      </li>
-                      <li className="pagination__item"><a className="pagination__link pagination__link--text" href="2">Далее</a>
-                      </li>
-                    </ul>
-                  </div>
+                  <CatalogItemsList/>
                 </div>
               </div>
             </div>
