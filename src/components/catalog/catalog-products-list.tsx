@@ -1,10 +1,10 @@
 import { useAppSelector } from '../../hooks/typed-wrappers';
-import { itemsDataToCatalogCardsData } from '../../utils/data-formatting';
+import { productsDataToCatalogCardsData } from '../../utils/data-formatting';
 
-export function CatalogItemsList ():JSX.Element {
+export function CatalogProductsList ():JSX.Element {
 
-  const catalogCardsData = itemsDataToCatalogCardsData(
-    useAppSelector((state) => state.DATA.itemsList).slice(0, 9) // "pagination"
+  const catalogCardsData = productsDataToCatalogCardsData(
+    useAppSelector((state) => state.DATA.productsList).slice(0, 9) // "pagination"
   );
 
   return (

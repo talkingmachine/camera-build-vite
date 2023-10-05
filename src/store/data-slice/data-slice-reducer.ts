@@ -1,22 +1,23 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { ItemCategory, ItemLevel, ItemType, ReducerNameSpaces } from '../../consts/enums';
-import { ItemData } from '../../types/data-types';
-import { getItemsList } from '../api-actions';
+import { ProductCategory, ProductLevel, ProductType, ReducerNameSpaces } from '../../consts/enums';
+import { ProductData, PromoData } from '../../types/data-types';
+import { getProductsList, getPromoList } from '../api-actions';
 
 type InitialStateType = {
-  itemsList: ItemData[];
+  productsList: ProductData[];
+  promoList: PromoData[];
 }
 
 const initialState: InitialStateType = {
-  itemsList: [
+  productsList: [
     {
       'id': 1,
       'name': 'Ретрокамера Dus Auge lV',
       'vendorCode': 'DA4IU67AD5',
-      'type': ItemType['Коллекционная'],
-      'category': ItemCategory['Видеокамера'],
+      'type': ProductType['Коллекционная'],
+      'category': ProductCategory['Видеокамера'],
       'description': 'Немецкий концерн BRW разработал видеокамеру Das Auge IV в начале 80-х годов, однако она до сих пор пользуется популярностью среди коллекционеров и яростных почитателей старинной техники.',
-      'level': ItemLevel['Нулевой'],
+      'level': ProductLevel['Нулевой'],
       'price': 65000,
       'rating': 5,
       'reviewCount': 16,
@@ -24,6 +25,16 @@ const initialState: InitialStateType = {
       'previewImg2x': 'img/content/das-auge@2x.jpg',
       'previewImgWebp': 'img/content/das-auge.webp',
       'previewImgWebp2x': 'img/content/das-auge@2x.webp'
+    }
+  ],
+  promoList: [
+    {
+      id: 1,
+      name: 'Ретрокамера Dus Auge lV',
+      previewImg: 'img/content/promo.jpg',
+      previewImgWebp2x: 'img/content/promo@2x.webp',
+      previewImg2x: 'img/content/promo@2x.jpg',
+      previewImgWebp: 'img/content/promo.webp',
     }
   ]
 };
@@ -36,8 +47,11 @@ export const dataSlice = createSlice({
   },
   extraReducers(builder) {
     builder
-      .addCase(getItemsList.fulfilled, (state, action) => {
-        state.itemsList = action.payload;
+      .addCase(getProductsList.fulfilled, (state, action) => {
+        state.productsList = action.payload;
+      })
+      .addCase(getPromoList.fulfilled, (state, action) => {
+        state.promoList = action.payload;
       });
   },
 });

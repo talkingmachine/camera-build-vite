@@ -1,0 +1,8 @@
+.swiper-pagination-bullet{
+  background: white !important;
+}
+.swiper-pagination-bullets{
+  width: 10% !important;
+  left: initial !important;
+  right: 0 !important;
+}

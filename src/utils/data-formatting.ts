@@ -1,7 +1,7 @@
-import { ItemData } from '../types/data-types';
+import { ProductData } from '../types/data-types';
 
-export const itemsDataToCatalogCardsData = (itemsData: ItemData[]) =>
-  itemsData.map(({
+export const productsDataToCatalogCardsData = (productsData: ProductData[]) =>
+  productsData.map(({
     previewImg,
     previewImg2x,
     previewImgWebp,
