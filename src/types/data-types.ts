@@ -1,15 +1,15 @@
-import { ItemCategory, ItemLevel, ItemType } from '../consts/enums';
+import { ProductCategory, ProductLevel, ProductType } from '../consts/enums';
 import { store } from '../store';
 
 
-export type ItemData = {
+export type ProductData = {
     id: number;
     name: string;
     vendorCode: string;
-    type: ItemType;
-    category: ItemCategory;
+    type: ProductType;
+    category: ProductCategory;
     description: string;
-    level: ItemLevel;
+    level: ProductLevel;
     price: number;
     rating: number;
     reviewCount: number;
@@ -17,6 +17,15 @@ export type ItemData = {
     previewImg2x: string;
     previewImgWebp: string;
     previewImgWebp2x: string;
+}
+
+export type PromoData = {
+  id: number;
+  name: string;
+  previewImg: string;
+  previewImg2x: string;
+  previewImgWebp: string;
+  previewImgWebp2x: string;
 }
 
 export type State = ReturnType<typeof store.getState>;

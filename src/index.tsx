@@ -2,10 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { App } from './components/app';
 import { store } from './store';
-import { getItemsList } from './store/api-actions';
+import { getProductsList, getPromoList } from './store/api-actions';
 import { Provider } from 'react-redux';
 
-store.dispatch(getItemsList());
+store.dispatch(getProductsList());
+store.dispatch(getPromoList());
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

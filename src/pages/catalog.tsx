@@ -1,7 +1,7 @@
 import { Breadcrumbs } from '../components/breadcrumbs';
 import { CatalogAsideFilter } from '../components/catalog/catalog-aside-filter';
 import { CatalogBanner } from '../components/catalog/catalog-banner';
-import { CatalogItemsList } from '../components/catalog/catalog-items-list';
+import { CatalogProductsList } from '../components/catalog/catalog-products-list';
 import { Footer } from '../components/footer';
 import { Header } from '../components/header';
 
@@ -60,7 +60,7 @@ export function CatalogPage ():JSX.Element {
                       </div>
                     </form>
                   </div>
-                  <CatalogItemsList/>
+                  <CatalogProductsList/>
                 </div>
               </div>
             </div>

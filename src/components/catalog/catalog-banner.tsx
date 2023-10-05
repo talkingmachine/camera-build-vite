@@ -1,11 +1,41 @@
+import { Pagination, Autoplay } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import { useAppSelector } from '../../hooks/typed-wrappers';
+import { Link } from 'react-router-dom';
+import { RouterPaths } from '../../consts/router-paths';
+
 export function CatalogBanner ():JSX.Element {
+
+  const promoDataList = useAppSelector((state) => state.DATA.promoList);
+
   return (
-    <div className="banner">
-      <picture>
-        <source type="image/webp" srcSet="img/content/banner-bg.webp, img/content/banner-bg@2x.webp 2x" /><img src="img/content/banner-bg.jpg" srcSet="img/content/banner-bg@2x.jpg 2x" width={1280} height={280} alt="баннер" />
-      </picture>
-      <p className="banner__info"><span className="banner__message">Новинка!</span><span className="title title--h1">Cannonball&nbsp;Pro&nbsp;MX&nbsp;8i</span><span className="banner__text">Профессиональная камера от&nbsp;известного производителя</span><a className="btn" href="#">Подробнее</a></p>
-    </div>
+    <Swiper
+      modules={[Pagination, Autoplay]}
+      loop
+      pagination={{ clickable: true }}
+      autoplay={{
+        delay: 3000,
+        pauseOnMouseEnter: true,
+        disableOnInteraction: false
+      }}
+    >
+      {promoDataList.map((promoData) => (
+        <SwiperSlide key={promoData.id} className="banner">
+          <picture>
+            <source type="image/webp" srcSet={`${promoData.previewImgWebp}, ${promoData.previewImgWebp2x} 2x`} />
+            <img src={promoData.previewImg} srcSet={`${promoData.previewImg2x} 2x`} width={1280} height={280} alt="баннер" />
+          </picture>
+          <p className="banner__info">
+            <span className="banner__message">Новинка!</span>
+            <span className="title title--h1">{promoData.name}</span>
+            <span className="banner__text">Профессиональная камера от&nbsp;известного производителя</span>
+            <Link className="btn" to={RouterPaths.product}>Подробнее</Link>
+          </p>
+        </SwiperSlide>
+      ))}
+    </Swiper>
   );
 }
 
