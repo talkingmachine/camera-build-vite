@@ -1,6 +1,7 @@
+import { PRODUCTS_PER_PAGE } from '../consts/global';
 import { ProductData } from '../types/data-types';
 
-export const productsDataToCatalogCardsData = (productsData: ProductData[]) =>
+const productsDataToCatalogCardsData = (productsData: ProductData[]) =>
   productsData.map(({
     previewImg,
     previewImg2x,
@@ -19,3 +20,10 @@ export const productsDataToCatalogCardsData = (productsData: ProductData[]) =>
     id
   }));
 
+
+export const productsDataToCatalogList = (productsData: ProductData[], currentPage: number) =>
+  productsDataToCatalogCardsData(productsData)
+    .slice(
+      PRODUCTS_PER_PAGE * (currentPage - 1),
+      PRODUCTS_PER_PAGE * currentPage
+    );

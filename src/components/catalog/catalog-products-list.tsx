@@ -1,11 +1,15 @@
+import { useSearchParams } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/typed-wrappers';
-import { productsDataToCatalogCardsData } from '../../utils/data-formatting';
+import { productsDataToCatalogList } from '../../utils/data-formatting';
+import { CatalogPagination } from './catalog-pagination';
 
 export function CatalogProductsList ():JSX.Element {
 
-  const catalogCardsData = productsDataToCatalogCardsData(
-    useAppSelector((state) => state.DATA.productsList).slice(0, 9) // "pagination"
-  );
+  const productsListData = useAppSelector((state) => state.DATA.productsList);
+  const [searchParams] = useSearchParams();
+  const currentPage = +(searchParams.get('page') || 1);
+
+  const catalogCardsData = productsDataToCatalogList(productsListData, currentPage);
 
   return (
     <>
@@ -51,18 +55,7 @@ export function CatalogProductsList ():JSX.Element {
           </div>
         ))}
       </div>
-      <div className="pagination">
-        <ul className="pagination__list">
-          <li className="pagination__item"><a className="pagination__link pagination__link--active" href="1">1</a>
-          </li>
-          <li className="pagination__item"><a className="pagination__link" href="2">2</a>
-          </li>
-          <li className="pagination__item"><a className="pagination__link" href="3">3</a>
-          </li>
-          <li className="pagination__item"><a className="pagination__link pagination__link--text" href="2">Далее</a>
-          </li>
-        </ul>
-      </div>
+      <CatalogPagination listLength={productsListData.length}/>
     </>
   );
 }
