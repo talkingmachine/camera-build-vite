@@ -9,8 +9,7 @@ export function App ():JSX.Element {
     <BrowserRouter>
       <Routes>
         <Route path={RouterPaths.main} element={<CatalogPage/>} />
-        <Route path={RouterPaths.product} element={<ProductPage/>} />
-        {/* <Route path={`${RouterPaths.quest}/:id`} element={<QuestPage/>} /> */}
+        <Route path={`${RouterPaths.product}/:id`} element={<ProductPage/>} />
       </Routes>
       <Modal/>
     </BrowserRouter>
