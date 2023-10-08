@@ -4,15 +4,14 @@ import { ProductData } from '../types/data-types';
 
 export const formatPrice = (price: number) => price.toString().replace(/(\d)(?=(\d{3})+(\D|$))/g, '$1 ');
 
-const productsDataToCatalogCardsData = (productsData: ProductData[]) =>
-  productsData.map((productData) => ({
-    ...productData,
-    price: formatPrice(productData.price),
-  }));
-
+export const formatProductData = (productData: ProductData) => ({
+  ...productData,
+  price: formatPrice(productData.price),
+});
 
 export const productsDataToCatalogList = (productsData: ProductData[], currentPage: number) =>
-  productsDataToCatalogCardsData(productsData)
+  productsData
+    .map(formatProductData)
     .slice(
       PRODUCTS_PER_PAGE * (currentPage - 1),
       PRODUCTS_PER_PAGE * currentPage

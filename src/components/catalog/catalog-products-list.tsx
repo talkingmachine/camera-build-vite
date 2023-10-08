@@ -1,10 +1,12 @@
-import { useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/typed-wrappers';
 import { productsDataToCatalogList } from '../../utils/data-formatting';
 import { CatalogPagination } from './catalog-pagination';
 import { showModal } from '../../store/actions';
 import { PopupAddItem } from '../popups/popup-add-item';
 import { CatalogCardData } from '../../types/data-types';
+import { RouterPaths } from '../../consts/router-paths';
+import { ProductRate } from '../product/product-rate';
 
 export function CatalogProductsList ():JSX.Element {
 
@@ -32,23 +34,9 @@ export function CatalogProductsList ():JSX.Element {
             </div>
             <div className="product-card__info">
               <div className="rate product-card__rate">
-                <svg width={17} height={16} aria-hidden="true">
-                  <use xlinkHref="#icon-full-star" />
-                </svg>
-                <svg width={17} height={16} aria-hidden="true">
-                  <use xlinkHref="#icon-full-star" />
-                </svg>
-                <svg width={17} height={16} aria-hidden="true">
-                  <use xlinkHref="#icon-full-star" />
-                </svg>
-                <svg width={17} height={16} aria-hidden="true">
-                  <use xlinkHref="#icon-star" />
-                </svg>
-                <svg width={17} height={16} aria-hidden="true">
-                  <use xlinkHref="#icon-star" />
-                </svg>
-                <p className="visually-hidden">Рейтинг: 3</p>
-                <p className="rate__count"><span className="visually-hidden">Всего оценок:</span>23</p>
+                <ProductRate rating={catalogCardData.rating}/>
+                <p className="visually-hidden">Рейтинг: {catalogCardData.rating}</p>
+                <p className="rate__count"><span className="visually-hidden">Всего оценок:</span>{catalogCardData.reviewCount}</p>
               </div>
               <p className="product-card__title">{catalogCardData.name}</p>
               <p className="product-card__price"><span className="visually-hidden">Цена:</span>{catalogCardData.price} ₽
@@ -61,8 +49,8 @@ export function CatalogProductsList ():JSX.Element {
                 onClick={() => buyButtonClickHandler(catalogCardData)}
               >Купить
               </button>
-              <a className="btn btn--transparent" href="#">Подробнее
-              </a>
+              <Link className="btn btn--transparent" to={`${RouterPaths.product}/${catalogCardData.id}`}>Подробнее
+              </Link>
             </div>
           </div>
         ))}
