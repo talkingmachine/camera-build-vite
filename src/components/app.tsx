@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { CatalogPage } from '../pages/catalog';
 import { RouterPaths } from '../consts/router-paths';
 import { ProductPage } from '../pages/product';
+import { Modal } from './popups/modal';
 
 export function App ():JSX.Element {
   return (
@@ -11,6 +12,7 @@ export function App ():JSX.Element {
         <Route path={RouterPaths.product} element={<ProductPage/>} />
         {/* <Route path={`${RouterPaths.quest}/:id`} element={<QuestPage/>} /> */}
       </Routes>
+      <Modal/>
     </BrowserRouter>
   );
 }
