@@ -1,6 +1,6 @@
 import { ProductCategory, ProductLevel, ProductType } from '../consts/enums';
 import { store } from '../store';
-
+import { productsDataToCatalogList } from '../utils/data-formatting';
 
 export type ProductData = {
     id: number;
@@ -18,6 +18,8 @@ export type ProductData = {
     previewImgWebp: string;
     previewImgWebp2x: string;
 }
+
+export type CatalogCardData = (ReturnType<typeof productsDataToCatalogList>)[0]
 
 export type PromoData = {
   id: number;

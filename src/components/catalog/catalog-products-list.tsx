@@ -1,15 +1,23 @@
 import { useSearchParams } from 'react-router-dom';
-import { useAppSelector } from '../../hooks/typed-wrappers';
+import { useAppDispatch, useAppSelector } from '../../hooks/typed-wrappers';
 import { productsDataToCatalogList } from '../../utils/data-formatting';
 import { CatalogPagination } from './catalog-pagination';
+import { showModal } from '../../store/actions';
+import { PopupAddItem } from '../popups/popup-add-item';
+import { CatalogCardData } from '../../types/data-types';
 
 export function CatalogProductsList ():JSX.Element {
 
+  const dispatch = useAppDispatch();
   const productsListData = useAppSelector((state) => state.DATA.productsList);
   const [searchParams] = useSearchParams();
   const currentPage = +(searchParams.get('page') || 1);
 
   const catalogCardsData = productsDataToCatalogList(productsListData, currentPage);
+
+  const buyButtonClickHandler = (catalogCardData: CatalogCardData) => {
+    dispatch(showModal(<PopupAddItem catalogCardData={catalogCardData}/>));
+  };
 
   return (
     <>
@@ -47,7 +55,11 @@ export function CatalogProductsList ():JSX.Element {
               </p>
             </div>
             <div className="product-card__buttons">
-              <button className="btn btn--purple product-card__btn" type="button">Купить
+              <button
+                className="btn btn--purple product-card__btn"
+                type="button"
+                onClick={() => buyButtonClickHandler(catalogCardData)}
+              >Купить
               </button>
               <a className="btn btn--transparent" href="#">Подробнее
               </a>

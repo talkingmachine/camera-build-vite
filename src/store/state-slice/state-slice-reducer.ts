@@ -1,13 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { ReducerNameSpaces } from '../../consts/enums';
-import { incMistakes } from '../actions';
+import { removeModal, showModal } from '../actions';
 
 type InitialStateType = {
   test: string;
+  popup: JSX.Element | false;
 }
 
 const initialState: InitialStateType = {
-  test: 'something'
+  test: 'something',
+  popup: false,
 };
 
 const statesSlice = createSlice({
@@ -17,8 +19,11 @@ const statesSlice = createSlice({
   },
   extraReducers(builder) {
     builder
-      .addCase(incMistakes, (state) => { //REMOVE
-        state.test = 'hello';
+      .addCase(showModal, (state, action) => {
+        state.popup = action.payload;
+      })
+      .addCase(removeModal, (state) => {
+        state.popup = false;
       });
   },
 });
