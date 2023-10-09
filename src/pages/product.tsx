@@ -6,16 +6,23 @@ import { ProductProductSimilar } from '../components/product/product-product-sim
 import { ProductReviewBlock } from '../components/product/product-review-block';
 import { useAppDispatch, useAppSelector } from '../hooks/typed-wrappers';
 import { formatProductData } from '../utils/data-formatting';
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import { getProduct } from '../store/api-actions';
 import { ProductRate } from '../components/product/product-rate';
 import { Picture } from '../components/picture';
+import classNames from 'classnames';
+import { Tabs } from '../consts/enums';
 
 export function ProductPage ():JSX.Element {
 
   const dispatch = useAppDispatch();
   const productPageId = +(useParams().id || -1);
   const productData = useAppSelector((state) => state.DATA.product);
+  const productPageInfo = formatProductData(productData);
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  const activeTab = searchParams.get('tab');
+  const setActiveTab = (tab: Tabs) => setSearchParams({tab});
 
   useEffect(() => {
     if (productPageId && productData.id !== productPageId) {
@@ -23,8 +30,6 @@ export function ProductPage ():JSX.Element {
     }
     document.title = productData.name;
   }, [dispatch, productData, productPageId]);
-
-  const productPageInfo = formatProductData(productData);
 
   return (
     <div className="wrapper">
@@ -62,11 +67,21 @@ export function ProductPage ():JSX.Element {
                   </button>
                   <div className="tabs product__tabs">
                     <div className="tabs__controls product__tabs-controls">
-                      <button className="tabs__control" type="button">Характеристики</button>
-                      <button className="tabs__control is-active" type="button">Описание</button>
+                      <button
+                        className={classNames('tabs__control', {'is-active' : activeTab === Tabs.details})}
+                        onClick={() => setActiveTab(Tabs.details)}
+                        type="button"
+                      >Характеристики
+                      </button>
+                      <button
+                        className={classNames('tabs__control', {'is-active' : !activeTab || activeTab === Tabs.description})}
+                        type="button"
+                        onClick={() => setActiveTab(Tabs.description)}
+                      >Описание
+                      </button>
                     </div>
                     <div className="tabs__content">
-                      <div className="tabs__element">
+                      <div className={classNames('tabs__element', {'is-active' : activeTab === Tabs.details})}>
                         <ul className="product__tabs-list">
                           <li className="item-list"><span className="item-list__title">Артикул:</span>
                             <p className="item-list__text"> {productPageInfo.vendorCode}</p>
@@ -82,7 +97,7 @@ export function ProductPage ():JSX.Element {
                           </li>
                         </ul>
                       </div>
-                      <div className="tabs__element is-active">
+                      <div className={classNames('tabs__element', {'is-active' : !activeTab || activeTab === Tabs.description})}>
                         <div className="product__tabs-text">
                           {productPageInfo.description}
                         </div>
