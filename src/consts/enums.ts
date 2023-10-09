@@ -3,19 +3,24 @@ export enum ReducerNameSpaces {
   data = 'DATA'
 }
 
-export enum ProductType { //Коллекционная┃Моментальная┃Цифровая┃Плёночная
+export enum Tabs {
+  description = 'description',
+  details = 'details'
+}
+
+export enum ProductType {
   'Коллекционная' = 'Коллекционная',
   'Моментальная' = 'Моментальная',
   'Цифровая' = 'Цифровая',
   'Плёночная' = 'Плёночная'
 }
 
-export enum ProductCategory { //Видеокамера┃Фотоаппарат
+export enum ProductCategory {
   'Видеокамера' = 'Видеокамера',
   'Фотоаппарат' = 'Фотоаппарат'
 }
 
-export enum ProductLevel { //Нулевой┃Любительский┃Профессиональный
+export enum ProductLevel {
   'Нулевой' = 'Нулевой',
   'Любительский' = 'Любительский',
   'Профессиональный' = 'Профессиональный'
