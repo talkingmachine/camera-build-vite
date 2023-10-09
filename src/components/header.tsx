@@ -5,7 +5,7 @@ export function Header ():JSX.Element {
   return (
     <header className="header" id="header">
       <div className="container">
-        <Link className="header__logo" to={RouterPaths.main} aria-label="Переход на главную">
+        <Link className="header__logo" to={RouterPaths.catalog} aria-label="Переход на главную">
           <svg width={100} height={36} aria-hidden="true">
             <use xlinkHref="#icon-logo" />
           </svg>
@@ -13,7 +13,7 @@ export function Header ():JSX.Element {
         <nav className="main-nav header__main-nav">
           <ul className="main-nav__list">
             <li className="main-nav__item">
-              <Link className="main-nav__link" to={RouterPaths.main}>Каталог</Link>
+              <Link className="main-nav__link" to={RouterPaths.catalog}>Каталог</Link>
             </li>
             <li className="main-nav__item"><a className="main-nav__link" href="#">Гарантии</a>
             </li>
