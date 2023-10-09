@@ -5,6 +5,7 @@ import 'swiper/css/pagination';
 import { useAppSelector } from '../../hooks/typed-wrappers';
 import { Link } from 'react-router-dom';
 import { RouterPaths } from '../../consts/router-paths';
+import { Picture } from '../picture';
 
 export function CatalogBanner ():JSX.Element {
 
@@ -23,10 +24,12 @@ export function CatalogBanner ():JSX.Element {
     >
       {promoDataList.map((promoData) => (
         <SwiperSlide key={promoData.id} className="banner">
-          <picture>
-            <source type="image/webp" srcSet={`${promoData.previewImgWebp}, ${promoData.previewImgWebp2x} 2x`} />
-            <img src={promoData.previewImg} srcSet={`${promoData.previewImg2x} 2x`} width={1280} height={280} alt="баннер" />
-          </picture>
+          <Picture
+            previewImgWebp = {promoData.previewImgWebp} previewImgWebp2x = {promoData.previewImgWebp2x}
+            previewImg = {promoData.previewImg} previewImg2x = {promoData.previewImg2x}
+            width = {1280} height = {280}
+            alt = {'баннер'}
+          />
           <p className="banner__info">
             <span className="banner__message">Новинка!</span>
             <span className="title title--h1">{promoData.name}</span>

@@ -2,6 +2,7 @@ import { useAppDispatch } from '../../hooks/typed-wrappers';
 import { removeModal } from '../../store/actions';
 import { CatalogCardData } from '../../types/data-types';
 import { formatTypeAndCategory } from '../../utils/data-formatting';
+import { Picture } from '../picture';
 
 
 type PopupAddItemProps = {
@@ -19,15 +20,12 @@ export function PopupAddItem ({catalogCardData}: PopupAddItemProps):JSX.Element 
       <p className="title title--h4">Добавить товар в корзину</p>
       <div className="basket-item basket-item--short">
         <div className="basket-item__img">
-          <picture>
-            <source type="image/webp" srcSet={`${catalogCardData.previewImgWebp}, ${catalogCardData.previewImgWebp2x} 2x`} />
-            <img
-              src={catalogCardData.previewImg}
-              srcSet={`${catalogCardData.previewImg2x} 2x`}
-              width={140} height={120}
-              alt={`${catalogCardData.type} ${catalogCardData.name}`}
-            />
-          </picture>
+          <Picture
+            previewImgWebp = {catalogCardData.previewImgWebp} previewImgWebp2x = {catalogCardData.previewImgWebp2x}
+            previewImg = {catalogCardData.previewImg} previewImg2x = {catalogCardData.previewImg2x}
+            width = {140} height = {120}
+            alt = {`${catalogCardData.type} ${catalogCardData.name}`}
+          />
         </div>
         <div className="basket-item__description">
           <p className="basket-item__title">{catalogCardData.name}</p>

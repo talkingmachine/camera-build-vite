@@ -7,6 +7,7 @@ import { PopupAddItem } from '../popups/popup-add-item';
 import { CatalogCardData } from '../../types/data-types';
 import { RouterPaths } from '../../consts/router-paths';
 import { ProductRate } from '../product/product-rate';
+import { Picture } from '../picture';
 
 export function CatalogProductsList ():JSX.Element {
 
@@ -27,10 +28,12 @@ export function CatalogProductsList ():JSX.Element {
         {catalogCardsData.map((catalogCardData) => (
           <div key={catalogCardData.id} className="product-card">
             <div className="product-card__img">
-              <picture>
-                <source type="image/webp" srcSet={`${catalogCardData.previewImgWebp}, ${catalogCardData.previewImgWebp2x} 2x`} />
-                <img src={catalogCardData.previewImg} srcSet={`${catalogCardData.previewImg2x} 2x`} width={280} height={240} alt={catalogCardData.name} />
-              </picture>
+              <Picture
+                previewImgWebp = {catalogCardData.previewImgWebp} previewImgWebp2x = {catalogCardData.previewImgWebp2x}
+                previewImg = {catalogCardData.previewImg} previewImg2x = {catalogCardData.previewImg2x}
+                width = {280} height = {240}
+                alt = {catalogCardData.name}
+              />
             </div>
             <div className="product-card__info">
               <div className="rate product-card__rate">

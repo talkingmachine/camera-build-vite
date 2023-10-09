@@ -9,6 +9,7 @@ import { formatProductData } from '../utils/data-formatting';
 import { useParams } from 'react-router-dom';
 import { getProduct } from '../store/api-actions';
 import { ProductRate } from '../components/product/product-rate';
+import { Picture } from '../components/picture';
 
 export function ProductPage ():JSX.Element {
 
@@ -38,10 +39,12 @@ export function ProductPage ():JSX.Element {
             <section className="product">
               <div className="container">
                 <div className="product__img">
-                  <picture>
-                    <source type="image/webp" srcSet={`${productPageInfo.previewImgWebp}, ${productPageInfo.previewImgWebp2x} 2x`} />
-                    <img src={productPageInfo.previewImg} srcSet={`${productPageInfo.previewImg2x} 2x`} width={560} height={480} alt={productPageInfo.name} />
-                  </picture>
+                  <Picture
+                    previewImgWebp = {productPageInfo.previewImgWebp} previewImgWebp2x = {productPageInfo.previewImgWebp2x}
+                    previewImg = {productPageInfo.previewImg} previewImg2x = {productPageInfo.previewImg2x}
+                    width = {560} height = {480}
+                    alt = {productPageInfo.name}
+                  />
                 </div>
                 <div className="product__content">
                   <h1 className="title title--h3">{productPageInfo.name}</h1>
