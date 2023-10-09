@@ -21,7 +21,8 @@ export function ProductPage ():JSX.Element {
     if (productPageId && productData.id !== productPageId) {
       dispatch(getProduct({id: productPageId}));
     }
-  }, [dispatch, productData.id, productPageId]);
+    document.title = productData.name;
+  }, [dispatch, productData, productPageId]);
 
   const productPageInfo = formatProductData(productData);
 
@@ -32,7 +33,7 @@ export function ProductPage ():JSX.Element {
         <div className="page-content">
           <div className="breadcrumbs">
             <div className="container">
-              <Breadcrumbs/>
+              <Breadcrumbs productPageInfo={productPageInfo}/>
             </div>
           </div>
           <div className="page-content__section">
