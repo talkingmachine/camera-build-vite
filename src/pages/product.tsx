@@ -12,6 +12,9 @@ import { ProductRate } from '../components/product/product-rate';
 import { Picture } from '../components/picture';
 import classNames from 'classnames';
 import { Tabs } from '../consts/enums';
+import { CatalogCardData } from '../types/data-types';
+import { PopupAddItem } from '../components/popups/popup-add-item';
+import { showModal } from '../store/actions';
 
 export function ProductPage ():JSX.Element {
 
@@ -30,6 +33,10 @@ export function ProductPage ():JSX.Element {
     }
     document.title = productData.name;
   }, [dispatch, productData, productPageId]);
+
+  const addToCartClickHandler = (catalogCardData: CatalogCardData) => {
+    dispatch(showModal(<PopupAddItem catalogCardData={catalogCardData}/>));
+  };
 
   return (
     <div className="wrapper">
@@ -60,7 +67,7 @@ export function ProductPage ():JSX.Element {
                     <p className="rate__count"><span className="visually-hidden">Всего оценок:</span>{productPageInfo.reviewCount}</p>
                   </div>
                   <p className="product__price"><span className="visually-hidden">Цена:</span>{productPageInfo.price} ₽</p>
-                  <button className="btn btn--purple" type="button">
+                  <button className="btn btn--purple" type="button" onClick={() => addToCartClickHandler(productPageInfo)}>
                     <svg width={24} height={16} aria-hidden="true">
                       <use xlinkHref="#icon-add-basket" />
                     </svg>Добавить в корзину
