@@ -1,16 +1,35 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { ProductCategory, ProductLevel, ProductType, ReducerNameSpaces } from '../../consts/enums';
 import { ProductData, PromoData } from '../../types/data-types';
-import { getProduct, getProductsList, getPromoList } from '../api-actions';
+import { getProduct, getProductsList, getPromoList, getSimilarList } from '../api-actions';
 
 type InitialStateType = {
   productsList: ProductData[];
+  similarList: ProductData[];
   promoList: PromoData[];
   product: ProductData;
 }
 
 const initialState: InitialStateType = {
   productsList: [
+    {
+      'id': 1,
+      'name': 'Ретрокамера Dus Auge lV',
+      'vendorCode': 'DA4IU67AD5',
+      'type': ProductType['Коллекционная'],
+      'category': ProductCategory['Видеокамера'],
+      'description': 'Немецкий концерн BRW разработал видеокамеру Das Auge IV в начале 80-х годов, однако она до сих пор пользуется популярностью среди коллекционеров и яростных почитателей старинной техники.',
+      'level': ProductLevel['Нулевой'],
+      'price': 65000,
+      'rating': 5,
+      'reviewCount': 16,
+      'previewImg': 'img/content/das-auge.jpg',
+      'previewImg2x': 'img/content/das-auge@2x.jpg',
+      'previewImgWebp': 'img/content/das-auge.webp',
+      'previewImgWebp2x': 'img/content/das-auge@2x.webp'
+    }
+  ],
+  similarList: [
     {
       'id': 1,
       'name': 'Ретрокамера Dus Auge lV',
@@ -66,6 +85,9 @@ export const dataSlice = createSlice({
     builder
       .addCase(getProductsList.fulfilled, (state, action) => {
         state.productsList = action.payload;
+      })
+      .addCase(getSimilarList.fulfilled, (state, action) => {
+        state.similarList = action.payload;
       })
       .addCase(getProduct.fulfilled, (state, action) => {
         state.product = action.payload;

@@ -21,6 +21,18 @@ export const getProductsList = createAsyncThunk<ProductData[], undefined, ThunkC
   }
 );
 
+export const getSimilarList = createAsyncThunk<ProductData[], {id: number}, ThunkConfig>(
+  'GET_SIMILAR_LIST',
+  async ({id}, {extra: api, rejectWithValue}) => {
+    try {
+      const {data} = await api.get<ProductData[]>(APIRoutes.GetSimilarList(id));
+      return data;
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  }
+);
+
 export const getProduct = createAsyncThunk<ProductData, {id: number}, ThunkConfig>(
   'GET_PRODUCT',
   async ({id}, {extra: api, rejectWithValue}) => {
