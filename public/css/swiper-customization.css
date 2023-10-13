@@ -6,3 +6,7 @@
   left: initial !important;
   right: 0 !important;
 }
+.product-similar .product-card {
+  max-width: 280px;
+}
+

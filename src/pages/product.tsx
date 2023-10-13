@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { Breadcrumbs } from '../components/breadcrumbs';
 import { Footer } from '../components/footer';
 import { Header } from '../components/header';
-import { ProductProductSimilar } from '../components/product/product-product-similar';
+import { ProductSimilar } from '../components/product/product-similar';
 import { ProductReviewBlock } from '../components/product/product-review-block';
 import { useAppDispatch, useAppSelector } from '../hooks/typed-wrappers';
 import { formatProductData } from '../utils/data-formatting';
@@ -15,6 +15,7 @@ import { Tabs } from '../consts/enums';
 import { CatalogCardData } from '../types/data-types';
 import { PopupAddItem } from '../components/popups/popup-add-item';
 import { showModal } from '../store/actions';
+import { ProductSimilar2 } from '../components/product/product-similar-2';
 
 export function ProductPage ():JSX.Element {
 
@@ -116,7 +117,7 @@ export function ProductPage ():JSX.Element {
             </section>
           </div>
           <div className="page-content__section">
-            <ProductProductSimilar/>
+            <ProductSimilar2/>
           </div>
           <div className="page-content__section">
             <ProductReviewBlock/>
