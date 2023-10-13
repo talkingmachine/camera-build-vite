@@ -43,10 +43,9 @@ export function ProductSimilar ():JSX.Element {
           <Swiper
             className='product-similar__slider-list'
             modules={[Navigation]}
-            slidesPerView='auto'
             navigation={{
-              prevEl: '.slider-controls--prev',
-              nextEl: '.slider-controls--next',
+              prevEl: '',
+              nextEl: '',
               disabledClass: 'disabled'
             }}
             onSwiper={(swiper) => setSwiperInstance(swiper)}
