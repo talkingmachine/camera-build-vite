@@ -15,7 +15,6 @@ import { Tabs } from '../consts/enums';
 import { CatalogCardData } from '../types/data-types';
 import { PopupAddItem } from '../components/popups/popup-add-item';
 import { showModal } from '../store/actions';
-import { ProductSimilar2 } from '../components/product/product-similar-2';
 
 export function ProductPage ():JSX.Element {
 
@@ -117,7 +116,7 @@ export function ProductPage ():JSX.Element {
             </section>
           </div>
           <div className="page-content__section">
-            <ProductSimilar2/>
+            <ProductSimilar/>
           </div>
           <div className="page-content__section">
             <ProductReviewBlock/>

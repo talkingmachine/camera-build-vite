@@ -1,15 +1,22 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/typed-wrappers';
 import { getSimilarList } from '../../store/api-actions';
 import { formatProductData } from '../../utils/data-formatting';
 
 import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { Swiper as SwiperType } from 'swiper/types';
 
 import { Picture } from '../picture';
 import { ProductRate } from './product-rate';
 import 'swiper/css';
 import 'swiper/css/navigation';
+import { ProductSimilarNavButtons } from './product-similar-nav-buttons';
+import { showModal } from '../../store/actions';
+import { CatalogCardData } from '../../types/data-types';
+import { PopupAddItem } from '../popups/popup-add-item';
+import { Link } from 'react-router-dom';
+import { RouterPaths } from '../../consts/router-paths';
 
 
 export function ProductSimilar ():JSX.Element {
@@ -18,10 +25,15 @@ export function ProductSimilar ():JSX.Element {
   const product = useAppSelector((state) => state.DATA.product);
   const similarListData = useAppSelector((state) => state.DATA.similarList);
   const similarCardsList = similarListData.map(formatProductData);
+  const [swiperInstance, setSwiperInstance] = useState<SwiperType>();
 
   useEffect(() => {
     dispatch(getSimilarList({id: product.id}));
   }, [dispatch, product.id]);
+
+  const buyButtonClickHandler = (catalogCardData: CatalogCardData) => {
+    dispatch(showModal(<PopupAddItem catalogCardData={catalogCardData}/>));
+  };
 
   return (
     <section className="product-similar">
@@ -33,12 +45,14 @@ export function ProductSimilar ():JSX.Element {
             modules={[Navigation]}
             slidesPerView='auto'
             navigation={{
-              prevEl: 'slider-controls--prev',
-              nextEl: 'slider-controls--next'
+              prevEl: '.slider-controls--prev',
+              nextEl: '.slider-controls--next',
+              disabledClass: 'disabled'
             }}
+            onSwiper={(swiper) => setSwiperInstance(swiper)}
           >
             {similarCardsList.map((similarCard) => (
-              <SwiperSlide key={similarCard.id} className='product-card is-active'>
+              <SwiperSlide key={similarCard.id} className='product-card is-active' >
                 <div className="product-card__img">
                   <Picture
                     previewImg={similarCard.previewImg}
@@ -62,62 +76,19 @@ export function ProductSimilar ():JSX.Element {
                   </p>
                 </div>
                 <div className="product-card__buttons">
-                  <button className="btn btn--purple product-card__btn" type="button">Купить
+                  <button
+                    className="btn btn--purple product-card__btn"
+                    type="button"
+                    onClick={() => buyButtonClickHandler(similarCard)}
+                  >Купить
                   </button>
-                  <a className="btn btn--transparent" href="#">Подробнее
-                  </a>
+                  <Link className="btn btn--transparent" to={`${RouterPaths.product}/${similarCard.id}`}>Подробнее
+                  </Link>
                 </div>
               </SwiperSlide>
             ))}
-            <SwiperSlide className="product-card is-active">
-              <div className="product-card__img">
-                <picture>
-                  <source type="image/webp" srcSet="img/content/fast-shot.webp, img/content/fast-shot@2x.webp 2x" /><img src="img/content/fast-shot.jpg" srcSet="img/content/fast-shot@2x.jpg 2x" width={280} height={240} alt="Фотоаппарат FastShot MR-5" />
-                </picture>
-              </div>
-              <div className="product-card__info">
-                <div className="rate product-card__rate">
-                  <svg width={17} height={16} aria-hidden="true">
-                    <use xlinkHref="#icon-full-star" />
-                  </svg>
-                  <svg width={17} height={16} aria-hidden="true">
-                    <use xlinkHref="#icon-full-star" />
-                  </svg>
-                  <svg width={17} height={16} aria-hidden="true">
-                    <use xlinkHref="#icon-full-star" />
-                  </svg>
-                  <svg width={17} height={16} aria-hidden="true">
-                    <use xlinkHref="#icon-full-star" />
-                  </svg>
-                  <svg width={17} height={16} aria-hidden="true">
-                    <use xlinkHref="#icon-star" />
-                  </svg>
-                  <p className="visually-hidden">Рейтинг: 4</p>
-                  <p className="rate__count"><span className="visually-hidden">Всего оценок:</span>12</p>
-                </div>
-                <p className="product-card__title">FastShot MR-5</p>
-                <p className="product-card__price"><span className="visually-hidden">Цена:</span>18 970 ₽
-                </p>
-              </div>
-              <div className="product-card__buttons">
-                <button className="btn btn--purple product-card__btn" type="button">Купить
-                </button>
-                <a className="btn btn--transparent" href="#">Подробнее
-                </a>
-              </div>
-            </SwiperSlide>
-            <button slot="container-end" className="slider-controls--prev" type="button" aria-label="Предыдущий слайд">
-              <svg width={7} height={12} aria-hidden="true">
-                <use xlinkHref="#icon-arrow" />
-              </svg>
-            </button>
-            <button slot="container-end" className="slider-controls--next" type="button" aria-label="Следующий слайд">
-              <svg width={7} height={12} aria-hidden="true">
-                <use xlinkHref="#icon-arrow" />
-              </svg>
-            </button>
           </Swiper>
-
+          <ProductSimilarNavButtons swiperInstance={swiperInstance}/>
         </div>
       </div>
     </section>
