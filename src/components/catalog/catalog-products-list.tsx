@@ -6,7 +6,7 @@ import { showModal } from '../../store/actions';
 import { PopupAddItem } from '../popups/popup-add-item';
 import { CatalogCardData } from '../../types/data-types';
 import { RouterPaths } from '../../consts/router-paths';
-import { ProductRate } from '../product/product-rate';
+import { Rating } from '../rating';
 import { Picture } from '../picture';
 
 export function CatalogProductsList ():JSX.Element {
@@ -37,7 +37,7 @@ export function CatalogProductsList ():JSX.Element {
             </div>
             <div className="product-card__info">
               <div className="rate product-card__rate">
-                <ProductRate rating={catalogCardData.rating}/>
+                <Rating rating={catalogCardData.rating}/>
                 <p className="visually-hidden">Рейтинг: {catalogCardData.rating}</p>
                 <p className="rate__count"><span className="visually-hidden">Всего оценок:</span>{catalogCardData.reviewCount}</p>
               </div>

@@ -1,13 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { ProductCategory, ProductLevel, ProductType, ReducerNameSpaces } from '../../consts/enums';
-import { ProductData, PromoData } from '../../types/data-types';
-import { getProduct, getProductsList, getPromoList, getSimilarList } from '../api-actions';
+import { ProductData, PromoData, ReviewData } from '../../types/data-types';
+import { getProduct, getProductsList, getPromoList, getReviewsList, getSimilarList } from '../api-actions';
 
 type InitialStateType = {
   productsList: ProductData[];
   similarList: ProductData[];
   promoList: PromoData[];
   product: ProductData;
+  reviewsList: ReviewData[];
 }
 
 const initialState: InitialStateType = {
@@ -72,7 +73,19 @@ const initialState: InitialStateType = {
     'previewImg2x': 'img/content/das-auge@2x.jpg',
     'previewImgWebp': 'img/content/das-auge.webp',
     'previewImgWebp2x': 'img/content/das-auge@2x.webp'
-  }
+  },
+  reviewsList: [
+    {
+      'id': 'f1d10ddd-2a21-4f71-9e1e-5f511703fbdd',
+      'createAt': '2022-07-09T13:24:57.980Z',
+      'cameraId': 1,
+      'userName': 'Кирилл',
+      'advantage': 'Легкая в плане веса, удобная в интерфейсе',
+      'disadvantage': 'Быстро садиться зарядка',
+      'review': 'Это моя первая камера. Я в восторге, нареканий нет',
+      'rating': 5
+    }
+  ]
 };
 
 
@@ -94,6 +107,9 @@ export const dataSlice = createSlice({
       })
       .addCase(getPromoList.fulfilled, (state, action) => {
         state.promoList = action.payload;
+      })
+      .addCase(getReviewsList.fulfilled, (state, action) => {
+        state.reviewsList = action.payload;
       });
   },
 });

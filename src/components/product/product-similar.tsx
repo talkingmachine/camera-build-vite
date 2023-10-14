@@ -2,13 +2,11 @@ import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/typed-wrappers';
 import { getSimilarList } from '../../store/api-actions';
 import { formatProductData } from '../../utils/data-formatting';
-
 import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Swiper as SwiperType } from 'swiper/types';
-
 import { Picture } from '../picture';
-import { ProductRate } from './product-rate';
+import { Rating } from '../rating';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import { ProductSimilarNavButtons } from './product-similar-nav-buttons';
@@ -43,10 +41,9 @@ export function ProductSimilar ():JSX.Element {
           <Swiper
             className='product-similar__slider-list'
             modules={[Navigation]}
-            slidesPerView='auto'
             navigation={{
-              prevEl: '.slider-controls--prev',
-              nextEl: '.slider-controls--next',
+              prevEl: '',
+              nextEl: '',
               disabledClass: 'disabled'
             }}
             onSwiper={(swiper) => setSwiperInstance(swiper)}
@@ -66,7 +63,7 @@ export function ProductSimilar ():JSX.Element {
                 </div>
                 <div className="product-card__info">
                   <div className="rate product-card__rate">
-                    <ProductRate rating={similarCard.rating}/>
+                    <Rating rating={similarCard.rating}/>
                     <p className="visually-hidden">Рейтинг: {similarCard.rating}</p>
                     <p className="rate__count"><span className="visually-hidden">Всего оценок:</span>{similarCard.reviewCount}</p>
                   </div>

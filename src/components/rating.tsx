@@ -1,9 +1,9 @@
-import { STARS_NUMBER } from '../../consts/global';
+import { STARS_NUMBER } from '../consts/global';
 
 type ProductRateProps = {
   rating: number;
 }
-export function ProductRate ({rating}: ProductRateProps):JSX.Element {
+export function Rating ({rating}: ProductRateProps):JSX.Element {
 
   const stars = Array.from({length: STARS_NUMBER}, (_, index) => index + 1);
 
