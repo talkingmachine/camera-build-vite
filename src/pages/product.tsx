@@ -8,7 +8,7 @@ import { useAppDispatch, useAppSelector } from '../hooks/typed-wrappers';
 import { formatProductData } from '../utils/data-formatting';
 import { useParams, useSearchParams } from 'react-router-dom';
 import { getProduct } from '../store/api-actions';
-import { ProductRate } from '../components/product/product-rate';
+import { Rating } from '../components/rating';
 import { Picture } from '../components/picture';
 import classNames from 'classnames';
 import { Tabs } from '../consts/enums';
@@ -38,6 +38,14 @@ export function ProductPage ():JSX.Element {
     dispatch(showModal(<PopupAddItem catalogCardData={catalogCardData}/>));
   };
 
+  const scrollUpButtonHandler = () => {
+    window.scrollTo({
+      behavior: 'smooth',
+      top: 0,
+      left: 0,
+    });
+  };
+
   return (
     <div className="wrapper">
       <Header/>
@@ -62,7 +70,7 @@ export function ProductPage ():JSX.Element {
                 <div className="product__content">
                   <h1 className="title title--h3">{productPageInfo.name}</h1>
                   <div className="rate product__rate">
-                    <ProductRate rating={productPageInfo.rating}/>
+                    <Rating rating={productPageInfo.rating}/>
                     <p className="visually-hidden">Рейтинг: {productPageInfo.rating}</p>
                     <p className="rate__count"><span className="visually-hidden">Всего оценок:</span>{productPageInfo.reviewCount}</p>
                   </div>
@@ -119,11 +127,14 @@ export function ProductPage ():JSX.Element {
             <ProductSimilar/>
           </div>
           <div className="page-content__section">
-            <ProductReviewBlock/>
+            <ProductReviewBlock id={productPageInfo.id}/>
           </div>
         </div>
       </main>
-      <a className="up-btn" href="#header">
+      <a
+        className="up-btn"
+        onClick={scrollUpButtonHandler}
+      >
         <svg width={12} height={18} aria-hidden="true">
           <use xlinkHref="#icon-arrow2"/>
         </svg>
