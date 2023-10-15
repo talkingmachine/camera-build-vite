@@ -1,8 +1,9 @@
 import { useAppDispatch } from '../../hooks/typed-wrappers';
-import { removeModal } from '../../store/actions';
+import { removeModal, showModal } from '../../store/actions';
 import { postReview } from '../../store/api-actions';
 import { useState } from 'react';
 import { ReviewPostData } from '../../types/data-types';
+import { PopupReviewSuccess } from './popup-review-success';
 
 type PopupAddReviewProps = {
   cameraId: number;
@@ -26,6 +27,8 @@ export function PopupAddReview ({cameraId}: PopupAddReviewProps):JSX.Element {
   const formSubmitHandler = (evt: React.FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     dispatch(postReview({reviewPostData: formData}));
+    dispatch(removeModal());
+    dispatch(showModal(<PopupReviewSuccess/>));
   };
 
   const updateFormData = (field: keyof ReviewPostData, data: ReviewPostData[typeof field]) => { // QUESTION about data
