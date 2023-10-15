@@ -4,6 +4,8 @@ import { getReviewsList } from '../../store/api-actions';
 import { Rating } from '../rating';
 import { reviewsDataToReviewsList } from '../../utils/data-formatting';
 import { REVIEWS_PER_PAGE } from '../../consts/global';
+import { showModal } from '../../store/actions';
+import { PopupAddReview } from '../popups/popup-add-review';
 
 
 type ProductReviewBlockProps = {
@@ -20,6 +22,10 @@ export function ProductReviewBlock ({id}: ProductReviewBlockProps):JSX.Element {
     setCurrentPage((prev) => prev + 1);
   };
 
+  const newReviewButtonClickHandler = () => {
+    dispatch(showModal(<PopupAddReview cameraId={id}/>));
+  };
+
   useEffect(() => {
     dispatch(getReviewsList({id}));
   }, [dispatch, id]);
@@ -29,7 +35,7 @@ export function ProductReviewBlock ({id}: ProductReviewBlockProps):JSX.Element {
       <div className="container">
         <div className="page-content__headed">
           <h2 className="title title--h3">Отзывы</h2>
-          <button className="btn" type="button">Оставить свой отзыв</button>
+          <button className="btn" type="button" onClick={newReviewButtonClickHandler}>Оставить свой отзыв</button>
         </div>
         <ul className="review-block__list">
           {reviewsList.map((review) => (

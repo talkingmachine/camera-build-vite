@@ -6,15 +6,21 @@ export function Modal ():JSX.Element {
   const dispatch = useAppDispatch();
   const popup = useAppSelector((state) => state.STATES.popup);
 
-  const modalOverlayClickHandler = () => {
-    dispatch(removeModal());
+  const modalRemoveHandler = (evt: React.KeyboardEvent<HTMLElement> | React.MouseEvent<HTMLElement>) => {
+    if ('key' in evt) {
+      if (evt.key === 'Escape') {
+        dispatch(removeModal());
+      }
+    } else {
+      dispatch(removeModal());
+    }
   };
 
   if (popup) {
     return (
-      <div className="modal is-active">
+      <div className="modal is-active" onKeyDown={modalRemoveHandler}>
         <div className="modal__wrapper">
-          <div className="modal__overlay" onClick={modalOverlayClickHandler}/>
+          <div className="modal__overlay" onClick={modalRemoveHandler}/>
           {popup}
         </div>
       </div>);
