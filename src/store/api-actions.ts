@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
-import { AppDispatch, ProductData, PromoData, ReviewData, State } from '../types/data-types';
+import { AppDispatch, ProductData, PromoData, ReviewData, ReviewPostData, State } from '../types/data-types';
 import { APIRoutes } from '../consts/api-routes';
 
 type ThunkConfig = {
@@ -62,6 +62,18 @@ export const getReviewsList = createAsyncThunk<ReviewData[], {id: number}, Thunk
   async ({id}, {extra: api, rejectWithValue}) => {
     try {
       const {data} = await api.get<ReviewData[]>(APIRoutes.GetReviewsList(id));
+      return data;
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  }
+);
+
+export const postReview = createAsyncThunk<ReviewData, {reviewPostData: ReviewPostData}, ThunkConfig>(
+  'POST_REVIEW',
+  async ({reviewPostData}, {extra: api, rejectWithValue}) => {
+    try {
+      const {data} = await api.post<ReviewData>(APIRoutes.PostReview(), reviewPostData);
       return data;
     } catch (err) {
       return rejectWithValue(err);

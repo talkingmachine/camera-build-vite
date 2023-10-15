@@ -41,6 +41,14 @@ export type ReviewData = {
   review: string;
   rating: number;
 }
+export type ReviewPostData = {
+  cameraId: number;
+  userName: string;
+  advantage: string;
+  disadvantage: string;
+  review: string;
+  rating: number;
+}
 
 export type State = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

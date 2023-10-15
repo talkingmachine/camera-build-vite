@@ -19,7 +19,7 @@ export const formatReviewData = (reviewData: ReviewData) => {
   return ({
     ...reviewData,
     createAt: {
-      formatted: `${date.getDate()} ${getMonthNameInGenitiveCase(date)}`,
+      formatted: `${date.getDate().toString().padStart(2,'0')} ${getMonthNameInGenitiveCase(date)}`,
       dateTime: reviewData.createAt
     }
   });
