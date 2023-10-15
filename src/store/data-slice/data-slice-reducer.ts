@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { ProductCategory, ProductLevel, ProductType, ReducerNameSpaces } from '../../consts/enums';
 import { ProductData, PromoData, ReviewData } from '../../types/data-types';
-import { getProduct, getProductsList, getPromoList, getReviewsList, getSimilarList } from '../api-actions';
+import { getProduct, getProductsList, getPromoList, getReviewsList, getSimilarList, postReview } from '../api-actions';
 
 type InitialStateType = {
   productsList: ProductData[];
@@ -110,6 +110,9 @@ export const dataSlice = createSlice({
       })
       .addCase(getReviewsList.fulfilled, (state, action) => {
         state.reviewsList = action.payload;
+      })
+      .addCase(postReview.fulfilled, (state, action) => {
+        state.reviewsList.push(action.payload);
       });
   },
 });
