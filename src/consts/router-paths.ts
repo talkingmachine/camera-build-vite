@@ -1,6 +1,7 @@
 export enum RouterPaths {
   catalog = '/',
-  product = '/product'
+  product = '/product',
+  notFound = '*'
 }
 
 export const RouterPathsNames = {
