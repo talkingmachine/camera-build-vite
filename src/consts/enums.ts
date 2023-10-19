@@ -8,6 +8,14 @@ export enum Tabs {
   details = 'details'
 }
 
+export enum FormReviewNames {
+  rating = 'rating',
+  userName = 'userName',
+  advantage = 'advantage',
+  disadvantage = 'disadvantage',
+  review = 'review'
+}
+
 export enum ProductType {
   'Коллекционная' = 'Коллекционная',
   'Моментальная' = 'Моментальная',
