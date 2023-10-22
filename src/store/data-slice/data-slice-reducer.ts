@@ -11,7 +11,7 @@ type InitialStateType = {
   reviewsList: ReviewData[];
 }
 
-const initialState: InitialStateType = {
+export const initialState: InitialStateType = {
   productsList: [
     {
       'id': 1,
