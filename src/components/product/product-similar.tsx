@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/typed-wrappers';
 import { getSimilarList } from '../../store/api-actions';
 import { formatProductData } from '../../utils/data-formatting';
@@ -9,12 +9,12 @@ import { Picture } from '../picture';
 import { Rating } from '../rating';
 import 'swiper/css';
 import 'swiper/css/navigation';
-import { ProductSimilarNavButtons } from './product-similar-nav-buttons';
 import { showModal } from '../../store/actions';
 import { CatalogCardData } from '../../types/data-types';
 import { PopupAddItem } from '../popups/popup-add-item';
 import { Link } from 'react-router-dom';
 import { RouterPaths } from '../../consts/router-paths';
+import { ProductSimilarNavButtons } from './product-similar-nav-buttons';
 
 
 export function ProductSimilar ():JSX.Element {
@@ -24,6 +24,8 @@ export function ProductSimilar ():JSX.Element {
   const similarListData = useAppSelector((state) => state.DATA.similarList);
   const similarCardsList = similarListData.map(formatProductData);
   const [swiperInstance, setSwiperInstance] = useState<SwiperType>();
+  const buttonPrevElement = useRef<HTMLButtonElement>(null);
+  const buttonNextElement = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     dispatch(getSimilarList({id: product.id}));
@@ -41,9 +43,10 @@ export function ProductSimilar ():JSX.Element {
           <Swiper
             className='product-similar__slider-list'
             modules={[Navigation]}
+            slidesPerView='auto'
             navigation={{
-              prevEl: '',
-              nextEl: '',
+              prevEl: buttonPrevElement.current,
+              nextEl: buttonNextElement.current,
               disabledClass: 'disabled'
             }}
             onSwiper={(swiper) => setSwiperInstance(swiper)}
@@ -85,7 +88,10 @@ export function ProductSimilar ():JSX.Element {
               </SwiperSlide>
             ))}
           </Swiper>
-          <ProductSimilarNavButtons swiperInstance={swiperInstance}/>
+          <ProductSimilarNavButtons
+            buttonElements={{prevEl: buttonPrevElement, nextEl: buttonNextElement}}
+            swiperInstance={swiperInstance}
+          />
         </div>
       </div>
     </section>

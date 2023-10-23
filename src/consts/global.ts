@@ -4,6 +4,8 @@ export const PRODUCTS_PER_PAGE = 9;
 export const STARS_NUMBER = 5;
 export const SIMILAR_PRODUCTS_PER_PAGE = 3;
 export const REVIEWS_PER_PAGE = 3;
+export const REVIEW_SYMBOLS = {min: 2, max: 160};
+
 
 export const messages = {
   productNameNotFound: 'Название продукта не найдено'

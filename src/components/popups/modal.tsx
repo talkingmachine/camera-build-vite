@@ -20,7 +20,7 @@ export function Modal ():JSX.Element {
     return (
       <div className="modal is-active" onKeyDown={modalRemoveHandler}>
         <div className="modal__wrapper">
-          <div className="modal__overlay" onClick={modalRemoveHandler}/>
+          <div className="modal__overlay" onClick={modalRemoveHandler} data-testid='modal'/>
           {popup}
         </div>
       </div>);
