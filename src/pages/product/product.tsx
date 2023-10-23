@@ -1,20 +1,20 @@
 import { useEffect } from 'react';
-import { Breadcrumbs } from '../components/breadcrumbs';
-import { Footer } from '../components/footer';
-import { Header } from '../components/header';
-import { ProductSimilar } from '../components/product/product-similar';
-import { ProductReviewBlock } from '../components/product/product-review-block';
-import { useAppDispatch, useAppSelector } from '../hooks/typed-wrappers';
-import { formatProductData } from '../utils/data-formatting';
+import { Breadcrumbs } from '../../components/breadcrumbs';
+import { Footer } from '../../components/footer';
+import { Header } from '../../components/header';
+import { ProductSimilar } from '../../components/product/product-similar';
+import { ProductReviewBlock } from '../../components/product/product-review-block';
+import { useAppDispatch, useAppSelector } from '../../hooks/typed-wrappers';
+import { formatProductData } from '../../utils/data-formatting';
 import { useParams, useSearchParams } from 'react-router-dom';
-import { getProduct } from '../store/api-actions';
-import { Rating } from '../components/rating';
-import { Picture } from '../components/picture';
+import { getProduct } from '../../store/api-actions';
+import { Rating } from '../../components/rating';
+import { Picture } from '../../components/picture';
 import classNames from 'classnames';
-import { Tabs } from '../consts/enums';
-import { CatalogCardData } from '../types/data-types';
-import { PopupAddItem } from '../components/popups/popup-add-item';
-import { showModal } from '../store/actions';
+import { Tabs } from '../../consts/enums';
+import { CatalogCardData } from '../../types/data-types';
+import { PopupAddItem } from '../../components/popups/popup-add-item';
+import { showModal } from '../../store/actions';
 
 export function ProductPage ():JSX.Element {
 
@@ -96,8 +96,8 @@ export function ProductPage ():JSX.Element {
                       </button>
                     </div>
                     <div className="tabs__content">
-                      <div className={classNames('tabs__element', {'is-active' : activeTab === Tabs.details})}>
-                        <ul className="product__tabs-list">
+                      <div className={classNames('tabs__element', {'is-active' : activeTab === Tabs.details})} data-testid='descriptionList'>
+                        <ul className="product__tabs-list" >
                           <li className="item-list"><span className="item-list__title">Артикул:</span>
                             <p className="item-list__text"> {productPageInfo.vendorCode}</p>
                           </li>

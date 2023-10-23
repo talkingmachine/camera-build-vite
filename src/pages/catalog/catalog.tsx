@@ -1,9 +1,9 @@
-import { Breadcrumbs } from '../components/breadcrumbs';
-import { CatalogAsideFilter } from '../components/catalog/catalog-aside-filter';
-import { CatalogBanner } from '../components/catalog/catalog-banner';
-import { CatalogProductsList } from '../components/catalog/catalog-products-list';
-import { Footer } from '../components/footer';
-import { Header } from '../components/header';
+import { Breadcrumbs } from '../../components/breadcrumbs';
+import { CatalogAsideFilter } from '../../components/catalog/catalog-aside-filter';
+import { CatalogBanner } from '../../components/catalog/catalog-banner';
+import { CatalogProductsList } from '../../components/catalog/catalog-products-list';
+import { Footer } from '../../components/footer';
+import { Header } from '../../components/header';
 
 export function CatalogPage ():JSX.Element {
   return (

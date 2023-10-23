@@ -1,4 +1,3 @@
-import { Modal } from '../../components/popups/modal';
 import { showModal } from '../actions';
 import { InitialStateType, initialState, statesSlice } from './state-slice-reducer';
 
@@ -10,11 +9,10 @@ describe('Reducer: user interaction slice', () => {
 
   it('should return JSX.Element when showModel action is called', () => {
     const testInitialState: InitialStateType = { popup: false };
-    const expectedPopupState = Modal();
+    const expectedState = {} as JSX.Element;
 
-    const result = statesSlice.reducer(testInitialState, showModal(Modal()));
+    const result = statesSlice.reducer(testInitialState, showModal({} as JSX.Element));
 
-    expect(result.popup).toBe(expectedPopupState);
+    expect(result.popup).toStrictEqual(expectedState);
   });
-
 });
