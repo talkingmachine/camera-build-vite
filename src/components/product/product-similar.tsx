@@ -15,6 +15,7 @@ import { PopupAddItem } from '../popups/popup-add-item';
 import { Link } from 'react-router-dom';
 import { RouterPaths } from '../../consts/router-paths';
 import { ProductSimilarNavButtons } from './product-similar-nav-buttons';
+import { ImagesParams } from '../../consts/global';
 
 
 export function ProductSimilar ():JSX.Element {
@@ -53,16 +54,16 @@ export function ProductSimilar ():JSX.Element {
           >
             {similarCardsList.map((similarCard) => (
               <SwiperSlide key={similarCard.id} className='product-card is-active' >
-                    <div className="product-card__img">
-                        { /*  width={280} height={240} magic numbers */}
+                <div className="product-card__img">
                   <Picture
                     previewImg={similarCard.previewImg}
                     previewImg2x={similarCard.previewImg2x}
                     previewImgWebp={similarCard.previewImgWebp}
                     previewImgWebp2x={similarCard.previewImgWebp2x}
-                    width={280}
-                    height={240}
-                    alt={similarCard.name}
+                    imageParams={{
+                      ...ImagesParams.productPage.similarProducts,
+                      alt: similarCard.name
+                    }}
                   />
                 </div>
                 <div className="product-card__info">
@@ -83,7 +84,7 @@ export function ProductSimilar ():JSX.Element {
                     onClick={() => buyButtonClickHandler(similarCard)}
                   >Купить
                   </button>
-                  <Link className="btn btn--transparent" to={`${RouterPaths.product}/${similarCard.id}`}>Подробнее
+                  <Link className="btn btn--transparent" to={RouterPaths.product(similarCard.id)}>Подробнее
                   </Link>
                 </div>
               </SwiperSlide>

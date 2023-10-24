@@ -9,8 +9,7 @@ export function Footer ():JSX.Element {
               <use xlinkHref="#icon-logo-mono" />
             </svg>
           </a>
-                  <p className="footer__description">Интернет-магазин фото- и видеотехники</p>
-                   {/* выглядит как компонент который может принимать массив значений и отрисовывать его */ }
+          <p className="footer__description">Интернет-магазин фото- и видеотехники</p>
           <ul className="social">
             <li className="social__item">
               <a className="link" href="#" aria-label="Переход на страницу вконтатке">
@@ -34,8 +33,7 @@ export function Footer ():JSX.Element {
               </a>
             </li>
           </ul>
-              </div>
-               {/* выглядит как компонент который может принимать массив значений и отрисовывать его */ }
+        </div>
         <ul className="footer__nav">
           <li className="footer__nav-item">
             <p className="footer__title">Навигация</p>

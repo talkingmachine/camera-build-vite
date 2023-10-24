@@ -4,3 +4,9 @@ export type BreadcrumbData = {
   path: string;
   isLast: boolean;
 }
+
+export type ImageParams = {
+  width: number;
+  height: number;
+  alt: string;
+}

@@ -1,6 +1,7 @@
 import { Swiper } from 'swiper/types';
 import { SIMILAR_PRODUCTS_PER_PAGE } from '../../consts/global';
 import { RefObject } from 'react';
+import { IconArrow } from '../icon-components/icon-arrow';
 
 type ProductSimilarNavButtonsProps = {
   swiperInstance: Swiper | undefined;
@@ -9,7 +10,7 @@ type ProductSimilarNavButtonsProps = {
     nextEl: RefObject<HTMLButtonElement>;
   };
 }
-export function ProductSimilarNavButtons ({buttonElements, swiperInstance}: ProductSimilarNavButtonsProps):JSX.Element {
+export const ProductSimilarNavButtons:React.FC<ProductSimilarNavButtonsProps> = ({buttonElements, swiperInstance}: ProductSimilarNavButtonsProps) => {
 
   if (!swiperInstance) {
     return (
@@ -32,19 +33,14 @@ export function ProductSimilarNavButtons ({buttonElements, swiperInstance}: Prod
 
   return (
     <>
-          <button className="slider-controls-button slider-controls--prev" onClick={prevButtonClickHandler} ref={buttonElements.prevEl}>
-              {/* <svg width={7} height={12} aria-hidden="true">  magic numbers, эти параметры встречаются более одного раза можно вынести в локальную константу*/ }
-        <svg width={7} height={12} aria-hidden="true">
-          <use xlinkHref="#icon-arrow"/>
-        </svg>
+      <button className="slider-controls-button slider-controls--prev" onClick={prevButtonClickHandler} ref={buttonElements.prevEl}>
+        <IconArrow/>
       </button>
       <button className="slider-controls-button slider-controls--next" onClick={nextButtonClickHandler} ref={buttonElements.nextEl}>
-        <svg width={7} height={12} aria-hidden="true">
-          <use xlinkHref="#icon-arrow"/>
-        </svg>
+        <IconArrow/>
       </button>
     </>
   );
-}
+};
 
 

@@ -8,6 +8,7 @@ import { CatalogCardData } from '../../types/data-types';
 import { RouterPaths } from '../../consts/router-paths';
 import { Rating } from '../rating';
 import { Picture } from '../picture';
+import { ImagesParams } from '../../consts/global';
 
 export function CatalogProductsList ():JSX.Element {
 
@@ -31,8 +32,10 @@ export function CatalogProductsList ():JSX.Element {
               <Picture
                 previewImgWebp = {catalogCardData.previewImgWebp} previewImgWebp2x = {catalogCardData.previewImgWebp2x}
                 previewImg = {catalogCardData.previewImg} previewImg2x = {catalogCardData.previewImg2x}
-                width = {280} height = {240}
-                alt = {catalogCardData.name}
+                imageParams={{
+                  ...ImagesParams.catalogPage.productsList,
+                  alt: catalogCardData.name
+                }}
               />
             </div>
             <div className="product-card__info">
@@ -52,7 +55,7 @@ export function CatalogProductsList ():JSX.Element {
                 onClick={() => buyButtonClickHandler(catalogCardData)}
               >Купить
               </button>
-              <Link className="btn btn--transparent" to={`${RouterPaths.product}/${catalogCardData.id}`}>Подробнее
+              <Link className="btn btn--transparent" to={RouterPaths.product(catalogCardData.id)}>Подробнее
               </Link>
             </div>
           </div>

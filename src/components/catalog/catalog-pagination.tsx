@@ -5,7 +5,7 @@ import classNames from 'classnames';
 type CatalogPaginationProps = {
   listLength: number;
 }
-export function CatalogPagination ({listLength}: CatalogPaginationProps):JSX.Element {
+export const CatalogPagination:React.FC<CatalogPaginationProps> = ({listLength}: CatalogPaginationProps) => {
 
   const [searchParams, setSearchParams] = useSearchParams();
   const currentPage = +(searchParams.get('page') || 1);
@@ -54,4 +54,4 @@ export function CatalogPagination ({listLength}: CatalogPaginationProps):JSX.Ele
         </ul> : false}
     </div>
   );
-}
+};

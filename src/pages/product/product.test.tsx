@@ -1,8 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { initialState as statesInitialState } from '../../store/state-slice/state-slice-reducer';
-import { initialState as dataInitialState} from '../../store/data-slice/data-slice-reducer';
 import { ProductPage } from './product';
 import createAPI from '../../services/api-axios';
 import thunk from 'redux-thunk';
@@ -11,6 +9,7 @@ import { configureMockStore } from '@jedmao/redux-mock-store';
 import { State } from '../../types/data-types';
 import { AppThunkDispatch } from '../../utils/mocks';
 import userEvent from '@testing-library/user-event';
+import { dataInitialState, statesInitialState } from '../../consts/global';
 
 
 describe('Component: Product', () => {

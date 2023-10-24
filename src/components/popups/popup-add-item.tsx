@@ -1,14 +1,17 @@
+import { ImagesParams } from '../../consts/global';
 import { useAppDispatch } from '../../hooks/typed-wrappers';
 import { removeModal } from '../../store/actions';
 import { CatalogCardData } from '../../types/data-types';
 import { formatTypeAndCategory } from '../../utils/data-formatting';
+import { IconAddBasket } from '../icon-components/icon-add-basket';
+import { IconClose } from '../icon-components/icon-close';
 import { Picture } from '../picture';
 
 
 type PopupAddItemProps = {
   catalogCardData: CatalogCardData;
 }
-export function PopupAddItem ({catalogCardData}: PopupAddItemProps):JSX.Element {
+export const PopupAddItem:React.FC<PopupAddItemProps> = ({catalogCardData}: PopupAddItemProps) => {
 
   const dispatch = useAppDispatch();
   const closePopupHandler = () => {
@@ -23,8 +26,10 @@ export function PopupAddItem ({catalogCardData}: PopupAddItemProps):JSX.Element 
           <Picture
             previewImgWebp = {catalogCardData.previewImgWebp} previewImgWebp2x = {catalogCardData.previewImgWebp2x}
             previewImg = {catalogCardData.previewImg} previewImg2x = {catalogCardData.previewImg2x}
-            width = {140} height = {120}
-            alt = {`${catalogCardData.type} ${catalogCardData.name}`}
+            imageParams={{
+              ...ImagesParams.popups.addItem,
+              alt: `${catalogCardData.type} ${catalogCardData.name}`
+            }}
           />
         </div>
         <div className="basket-item__description">
@@ -46,9 +51,8 @@ export function PopupAddItem ({catalogCardData}: PopupAddItemProps):JSX.Element 
           type="button"
           autoFocus
         >
-          <svg width={24} height={16} aria-hidden="true">
-            <use xlinkHref="#icon-add-basket" />
-          </svg>Добавить в корзину
+          <IconAddBasket/>
+          Добавить в корзину
         </button>
       </div>
       <button
@@ -57,11 +61,9 @@ export function PopupAddItem ({catalogCardData}: PopupAddItemProps):JSX.Element 
         aria-label="Закрыть попап"
         onClick={closePopupHandler}
       >
-        <svg width={10} height={10} aria-hidden="true">
-          <use xlinkHref="#icon-close" />
-        </svg>
+        <IconClose/>
       </button>
     </div>
   );
-}
+};
 
