@@ -30,7 +30,8 @@ export function Header ():JSX.Element {
                 <use xlinkHref="#icon-lens" />
               </svg>
               <input className="form-search__input" type="text" autoComplete="off" placeholder="Поиск по сайту" />
-            </label>
+                      </label>
+                      {/* выглядит как компонент который может принимать массив значений и отрисовывать его */ }          
             <ul className="form-search__select-list">
               <li className="form-search__select-item" tabIndex={0}>Cannonball Pro MX 8i</li>
               <li className="form-search__select-item" tabIndex={0}>Cannonball Pro MX 7i</li>

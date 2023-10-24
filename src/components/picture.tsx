@@ -8,6 +8,7 @@ type PictureProps = {
   height: number;
   alt: string;
 }
+
 export function Picture ({
   previewImgWebp,
   previewImgWebp2x,
@@ -16,7 +17,7 @@ export function Picture ({
   width,
   height,
   alt
-}: PictureProps):JSX.Element {
+}: PictureProps):JSX.Element { // здесь не обосновано использование JSX.Element, везде где есть пропсы необходимо использовать React.FC
   return (
     <picture>
       <source type="image/webp" srcSet={`/${previewImgWebp}, /${previewImgWebp2x} 2x`} />

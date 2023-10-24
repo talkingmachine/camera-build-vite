@@ -26,7 +26,8 @@ export function CatalogBanner ():JSX.Element {
         <SwiperSlide key={promoData.id} className="banner">
           <Picture
             previewImgWebp = {promoData.previewImgWebp} previewImgWebp2x = {promoData.previewImgWebp2x}
-            previewImg = {promoData.previewImg} previewImg2x = {promoData.previewImg2x}
+                  previewImg={promoData.previewImg} previewImg2x={promoData.previewImg2x}
+            // выглядит как пропсы для swiper или константы      
             width = {1280} height = {280}
             alt = {'баннер'}
           />

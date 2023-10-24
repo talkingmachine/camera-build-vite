@@ -35,7 +35,8 @@ export function PopupAddReview ({cameraId}: PopupAddReviewProps):JSX.Element {
       advantage: fieldsData.advantage,
       disadvantage: fieldsData.disadvantage,
       review: fieldsData.review,
-      rating: +fieldsData.rating
+      // лучше Number(fieldsData.rating) читается лучше
+        rating: +fieldsData.rating
     };
     dispatch(postReview({reviewPostData: postData}));
     dispatch(removeModal());

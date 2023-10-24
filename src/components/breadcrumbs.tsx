@@ -7,6 +7,8 @@ type BreadcrumbsProps = {
 }
 export function Breadcrumbs ({productPageInfo}: BreadcrumbsProps):JSX.Element {
 
+    // лучше вынести в отдельный компонент
+    // <svg width={5} height={8} = магические числа
   const Arrow = ():JSX.Element => (
     <svg width={5} height={8} aria-hidden="true">
       <use xlinkHref="#icon-arrow-mini" />

@@ -53,7 +53,8 @@ export function ProductSimilar ():JSX.Element {
           >
             {similarCardsList.map((similarCard) => (
               <SwiperSlide key={similarCard.id} className='product-card is-active' >
-                <div className="product-card__img">
+                    <div className="product-card__img">
+                        { /*  width={280} height={240} magic numbers */}
                   <Picture
                     previewImg={similarCard.previewImg}
                     previewImg2x={similarCard.previewImg2x}

@@ -11,6 +11,7 @@ type InitialStateType = {
   reviewsList: ReviewData[];
 }
 
+// лучше вынести в отдельный файл
 export const initialState: InitialStateType = {
   productsList: [
     {

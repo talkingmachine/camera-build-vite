@@ -29,7 +29,8 @@ export function PopupReviewSuccess ():JSX.Element {
         type="button"
         aria-label="Закрыть попап"
         onClick={closePopupHandler}
-      >
+          >
+              {/*<svg width={10} height={10} magic numbers */ }      
         <svg width={10} height={10} aria-hidden="true">
           <use xlinkHref="#icon-close" />
         </svg>

@@ -5,6 +5,7 @@ type ProductRateProps = {
 }
 export function Rating ({rating}: ProductRateProps):JSX.Element {
 
+   // зависит только от константы, лучше вынести из компонента, не будет каждый раз создаваться ссылка 
   const stars = Array.from({length: STARS_NUMBER}, (_, index) => index + 1);
 
   return (

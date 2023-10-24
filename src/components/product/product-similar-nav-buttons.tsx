@@ -32,7 +32,8 @@ export function ProductSimilarNavButtons ({buttonElements, swiperInstance}: Prod
 
   return (
     <>
-      <button className="slider-controls-button slider-controls--prev" onClick={prevButtonClickHandler} ref={buttonElements.prevEl}>
+          <button className="slider-controls-button slider-controls--prev" onClick={prevButtonClickHandler} ref={buttonElements.prevEl}>
+              {/* <svg width={7} height={12} aria-hidden="true">  magic numbers, эти параметры встречаются более одного раза можно вынести в локальную константу*/ }
         <svg width={7} height={12} aria-hidden="true">
           <use xlinkHref="#icon-arrow"/>
         </svg>
