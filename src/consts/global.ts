@@ -7,6 +7,7 @@ export const STARS_NUMBER = 5;
 export const SIMILAR_PRODUCTS_PER_PAGE = 3;
 export const REVIEWS_PER_PAGE = 3;
 export const REVIEW_SYMBOLS = {min: 2, max: 160};
+export const APP_NAME = 'Фотошоп';
 
 
 export const getRatingNumbersArray = Array.from({length: STARS_NUMBER}, (_, index) => index + 1);
@@ -59,7 +60,7 @@ type DataInitialStateType = {
   productsList: ProductData[];
   similarList: ProductData[];
   promoList: PromoData[];
-  product: ProductData;
+  product: ProductData | null;
   reviewsList: ReviewData[];
 }
 type StatesInitialStateType = {

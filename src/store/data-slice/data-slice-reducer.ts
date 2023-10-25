@@ -20,6 +20,9 @@ export const dataSlice = createSlice({
       .addCase(getProduct.fulfilled, (state, action) => {
         state.product = action.payload;
       })
+      .addCase(getProduct.rejected, (state) => {
+        state.product = null;
+      })
       .addCase(getPromoList.fulfilled, (state, action) => {
         state.promoList = action.payload;
       })
