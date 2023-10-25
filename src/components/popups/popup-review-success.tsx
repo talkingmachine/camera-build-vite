@@ -1,5 +1,6 @@
 import { useAppDispatch } from '../../hooks/typed-wrappers';
 import { removeModal } from '../../store/actions';
+import { IconClose } from '../icon-components/icon-close';
 
 export function PopupReviewSuccess ():JSX.Element {
 
@@ -30,9 +31,7 @@ export function PopupReviewSuccess ():JSX.Element {
         aria-label="Закрыть попап"
         onClick={closePopupHandler}
       >
-        <svg width={10} height={10} aria-hidden="true">
-          <use xlinkHref="#icon-close" />
-        </svg>
+        <IconClose/>
       </button>
     </div>
   );

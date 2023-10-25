@@ -8,11 +8,13 @@ import { PopupReviewSuccess } from './popup-review-success';
 import { FieldValues, useForm } from 'react-hook-form';
 import classNames from 'classnames';
 import { FormReviewNames } from '../../consts/enums';
+import { IconSnowflake } from '../icon-components/icon-snowflake';
+import { IconClose } from '../icon-components/icon-close';
 
 type PopupAddReviewProps = {
   cameraId: number;
 }
-export function PopupAddReview ({cameraId}: PopupAddReviewProps):JSX.Element {
+export const PopupAddReview:React.FC<PopupAddReviewProps> = ({cameraId}: PopupAddReviewProps) => {
 
   const dispatch = useAppDispatch();
 
@@ -35,7 +37,7 @@ export function PopupAddReview ({cameraId}: PopupAddReviewProps):JSX.Element {
       advantage: fieldsData.advantage,
       disadvantage: fieldsData.disadvantage,
       review: fieldsData.review,
-      rating: +fieldsData.rating
+      rating: Number(fieldsData.rating)
     };
     dispatch(postReview({reviewPostData: postData}));
     dispatch(removeModal());
@@ -50,9 +52,7 @@ export function PopupAddReview ({cameraId}: PopupAddReviewProps):JSX.Element {
           <div className="form-review__rate">
             <fieldset className={classNames('rate', 'form-review__item', {'is-invalid': FormReviewNames.rating in errors})}>
               <legend className="rate__caption">Рейтинг
-                <svg width={9} height={9} aria-hidden="true">
-                  <use xlinkHref="#icon-snowflake" />
-                </svg>
+                <IconSnowflake/>
               </legend>
               <div className="rate__bar">
                 <div className="rate__group">
@@ -88,7 +88,7 @@ export function PopupAddReview ({cameraId}: PopupAddReviewProps):JSX.Element {
                   <label className="rate__label" htmlFor="star-1" title="Ужасно" />
                 </div>
                 <div className="rate__progress">
-                  <span className="rate__stars">{watch(FormReviewNames.rating, 0)}</span> <span>/</span> <span className="rate__all-stars">5</span>
+                  <span className="rate__stars">{watch(FormReviewNames.rating, 0) ? watch(FormReviewNames.rating, 0) : 0}</span> <span>/</span> <span className="rate__all-stars">5</span>
                 </div>
               </div>
               <p className="rate__message"><ErrorMessage errors={errors} name={FormReviewNames.rating}/></p>
@@ -96,9 +96,7 @@ export function PopupAddReview ({cameraId}: PopupAddReviewProps):JSX.Element {
             <div className={classNames('custom-input', 'form-review__item', {'is-invalid': FormReviewNames.userName in errors})}>
               <label>
                 <span className="custom-input__label">Ваше имя
-                  <svg width={9} height={9} aria-hidden="true">
-                    <use xlinkHref="#icon-snowflake" />
-                  </svg>
+                  <IconSnowflake/>
                 </span>
                 <input
                   type="text"
@@ -115,9 +113,7 @@ export function PopupAddReview ({cameraId}: PopupAddReviewProps):JSX.Element {
             <div className={classNames('custom-input', 'form-review__item', {'is-invalid': FormReviewNames.advantage in errors})}>
               <label>
                 <span className="custom-input__label">Достоинства
-                  <svg width={9} height={9} aria-hidden="true">
-                    <use xlinkHref="#icon-snowflake" />
-                  </svg>
+                  <IconSnowflake/>
                 </span>
                 <input
                   type="text"
@@ -133,9 +129,7 @@ export function PopupAddReview ({cameraId}: PopupAddReviewProps):JSX.Element {
             <div className={classNames('custom-input', 'form-review__item', {'is-invalid': FormReviewNames.disadvantage in errors})}>
               <label>
                 <span className="custom-input__label">Недостатки
-                  <svg width={9} height={9} aria-hidden="true">
-                    <use xlinkHref="#icon-snowflake" />
-                  </svg>
+                  <IconSnowflake/>
                 </span>
                 <input
                   type="text"
@@ -151,9 +145,7 @@ export function PopupAddReview ({cameraId}: PopupAddReviewProps):JSX.Element {
             <div className={classNames('custom-textarea', 'form-review__item', {'is-invalid': FormReviewNames.review in errors})}>
               <label>
                 <span className="custom-textarea__label">Комментарий
-                  <svg width={9} height={9} aria-hidden="true">
-                    <use xlinkHref="#icon-snowflake" />
-                  </svg>
+                  <IconSnowflake/>
                 </span>
                 <textarea
                   placeholder="Поделитесь своим опытом покупки"
@@ -175,11 +167,9 @@ export function PopupAddReview ({cameraId}: PopupAddReviewProps):JSX.Element {
         aria-label="Закрыть попап"
         onClick={closePopupHandler}
       >
-        <svg width={10} height={10} aria-hidden="true">
-          <use xlinkHref="#icon-close" />
-        </svg>
+        <IconClose/>
       </button>
     </div>
   );
-}
+};
 

@@ -1,18 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { ReducerNameSpaces } from '../../consts/enums';
 import { removeModal, showModal } from '../actions';
+import { statesInitialState } from '../../consts/global';
 
-export type InitialStateType = {
-  popup: JSX.Element | false;
-}
-
-export const initialState: InitialStateType = {
-  popup: false,
-};
 
 export const statesSlice = createSlice({
   name: ReducerNameSpaces.states,
-  initialState,
+  initialState: statesInitialState,
   reducers: {
   },
   extraReducers(builder) {

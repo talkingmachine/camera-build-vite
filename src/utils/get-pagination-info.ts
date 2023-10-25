@@ -1,19 +1,23 @@
-import { PRODUCTS_PER_PAGE } from '../consts/global';
 
-export const getPaginationInfo = (currentPage: number, listLength: number) => {
-  const pages = Math.ceil(listLength / PRODUCTS_PER_PAGE);
+export const getPaginationInfo = (currentPage: number, listLength: number, productsPerPage: number) => {
+  const pages = Math.ceil(listLength / productsPerPage);
 
-  if (listLength <= PRODUCTS_PER_PAGE) {
+  if (listLength <= productsPerPage) {
     return false;
   }
 
   const getPageNumbers = () => {
+    if (pages === 2) {
+      return [1, 2];
+    }
+
     const res = [currentPage - 1, currentPage, currentPage + 1];
     if (res[0] < 1) {
       return res.map((pageNumber) => pageNumber + 1);
     } else if (res[res.length - 1] > pages) {
       return res.map((pageNumber) => pageNumber - 1);
     }
+
     return res;
   };
 

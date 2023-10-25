@@ -3,7 +3,8 @@ import { CatalogAsideFilter } from '../../components/catalog/catalog-aside-filte
 import { CatalogBanner } from '../../components/catalog/catalog-banner';
 import { CatalogProductsList } from '../../components/catalog/catalog-products-list';
 import { Footer } from '../../components/footer';
-import { Header } from '../../components/header';
+import { Header } from '../../components/header/header';
+import { IconSort } from '../../components/icon-components/icon-sort';
 
 export function CatalogPage ():JSX.Element {
   return (
@@ -43,17 +44,13 @@ export function CatalogPage ():JSX.Element {
                           <div className="catalog-sort__btn catalog-sort__btn--up">
                             <input type="radio" id="up" name="sort-icon" defaultChecked aria-label="По возрастанию" />
                             <label htmlFor="up">
-                              <svg width={16} height={14} aria-hidden="true">
-                                <use xlinkHref="#icon-sort" />
-                              </svg>
+                              <IconSort/>
                             </label>
                           </div>
                           <div className="catalog-sort__btn catalog-sort__btn--down">
                             <input type="radio" id="down" name="sort-icon" aria-label="По убыванию" />
                             <label htmlFor="down">
-                              <svg width={16} height={14} aria-hidden="true">
-                                <use xlinkHref="#icon-sort" />
-                              </svg>
+                              <IconSort/>
                             </label>
                           </div>
                         </div>

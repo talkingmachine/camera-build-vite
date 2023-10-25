@@ -17,6 +17,7 @@ export function Modal ():JSX.Element {
   };
 
   if (popup) {
+    document.body.style.overflow = 'hidden';
     return (
       <div className="modal is-active" onKeyDown={modalRemoveHandler}>
         <div className="modal__wrapper">
@@ -25,6 +26,7 @@ export function Modal ():JSX.Element {
         </div>
       </div>);
   } else {
+    document.body.style.overflow = 'scroll';
     return (
       <>
       </>);

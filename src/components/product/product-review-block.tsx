@@ -11,12 +11,12 @@ import { PopupAddReview } from '../popups/popup-add-review';
 type ProductReviewBlockProps = {
   id: number;
 }
-export function ProductReviewBlock ({id}: ProductReviewBlockProps):JSX.Element {
+export const ProductReviewBlock:React.FC<ProductReviewBlockProps> = ({id}: ProductReviewBlockProps) => {
 
   const dispatch = useAppDispatch();
   const reviewsListData = useAppSelector((state) => state.DATA.reviewsList);
   const [currentPage, setCurrentPage] = useState(1);
-  const reviewsList = reviewsDataToReviewsList(reviewsListData, currentPage);
+  const reviewsList = reviewsDataToReviewsList(reviewsListData, currentPage, REVIEWS_PER_PAGE);
 
   const showMoreButtonClickHandler = () => {
     setCurrentPage((prev) => prev + 1);
@@ -74,6 +74,6 @@ export function ProductReviewBlock ({id}: ProductReviewBlockProps):JSX.Element {
       </div>
     </section>
   );
-}
+};
 
 

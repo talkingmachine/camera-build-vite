@@ -3,8 +3,8 @@ import { BrowserRouter } from 'react-router-dom';
 import { CatalogPage } from './catalog';
 import { Provider } from 'react-redux';
 import { configureMockStore } from '@jedmao/redux-mock-store';
-import { initialState as statesInitialState } from '../../store/state-slice/state-slice-reducer';
-import { initialState as dataInitialState} from '../../store/data-slice/data-slice-reducer';
+import { dataInitialState, statesInitialState } from '../../consts/global';
+
 
 describe('Component: Catalog', () => {
   const mockStore = configureMockStore();

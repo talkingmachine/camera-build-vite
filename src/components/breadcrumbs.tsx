@@ -1,16 +1,13 @@
 import { Link, useLocation } from 'react-router-dom';
 import { CatalogCardData } from '../types/data-types';
 import { getBreadcrumbsData } from '../utils/utils';
+import { IconArrowMini } from './icon-components/icon-arrow-mini';
 
 type BreadcrumbsProps = {
   productPageInfo?: CatalogCardData;
 }
-export function Breadcrumbs ({productPageInfo}: BreadcrumbsProps):JSX.Element {
+export const Breadcrumbs:React.FC<BreadcrumbsProps> = ({productPageInfo}: BreadcrumbsProps) => {
 
-  const Arrow = ():JSX.Element => (
-    <svg width={5} height={8} aria-hidden="true">
-      <use xlinkHref="#icon-arrow-mini" />
-    </svg>);
   const pathname = useLocation().pathname;
   const breadcrumbsData = getBreadcrumbsData(pathname, productPageInfo);
 
@@ -21,10 +18,10 @@ export function Breadcrumbs ({productPageInfo}: BreadcrumbsProps):JSX.Element {
           {breadcrumb.isLast ?
             <span className="breadcrumbs__link breadcrumbs__link--active">{breadcrumb.name}</span> :
             <Link className="breadcrumbs__link" to={breadcrumb.path}>{breadcrumb.name}
-              <Arrow/>
+              <IconArrowMini/>
             </Link>}
         </li>
       ))}
     </ul>
   );
-}
+};

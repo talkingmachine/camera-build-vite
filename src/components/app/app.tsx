@@ -9,9 +9,9 @@ export function App ():JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={RouterPaths.catalog} element={<CatalogPage/>} />
-        <Route path={`${RouterPaths.product}/:id`} element={<ProductPage/>} />
-        <Route path={RouterPaths.notFound} element={<NotFoundPage/>}/>
+        <Route path={RouterPaths.catalog()} element={<CatalogPage />} />
+        <Route path={RouterPaths.productWithAnyId()} element={<ProductPage/>} />
+        <Route path={RouterPaths.notFound()} element={<NotFoundPage/>}/>
       </Routes>
       <Modal/>
     </BrowserRouter>

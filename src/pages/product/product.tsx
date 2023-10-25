@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
 import { Breadcrumbs } from '../../components/breadcrumbs';
 import { Footer } from '../../components/footer';
-import { Header } from '../../components/header';
+import { Header } from '../../components/header/header';
 import { ProductSimilar } from '../../components/product/product-similar';
 import { ProductReviewBlock } from '../../components/product/product-review-block';
 import { useAppDispatch, useAppSelector } from '../../hooks/typed-wrappers';
 import { formatProductData } from '../../utils/data-formatting';
-import { useParams, useSearchParams } from 'react-router-dom';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { getProduct } from '../../store/api-actions';
 import { Rating } from '../../components/rating';
 import { Picture } from '../../components/picture';
@@ -15,24 +15,42 @@ import { Tabs } from '../../consts/enums';
 import { CatalogCardData } from '../../types/data-types';
 import { PopupAddItem } from '../../components/popups/popup-add-item';
 import { showModal } from '../../store/actions';
+import { IconAddBasket } from '../../components/icon-components/icon-add-basket';
+import { APP_NAME, ImagesParams } from '../../consts/global';
+import { RouterPaths } from '../../consts/router-paths';
 
 export function ProductPage ():JSX.Element {
 
   const dispatch = useAppDispatch();
-  const productPageId = +(useParams().id || -1);
-  const productData = useAppSelector((state) => state.DATA.product);
-  const productPageInfo = formatProductData(productData);
-
+  const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
+  const productPageId = Number(useParams().id || -1);
+  const productData = useAppSelector((state) => state.DATA.product);
   const activeTab = searchParams.get('tab');
   const setActiveTab = (tab: Tabs) => setSearchParams({tab});
+  let productPageInfo: CatalogCardData;
 
   useEffect(() => {
-    if (productPageId && productData.id !== productPageId) {
-      dispatch(getProduct({id: productPageId}));
+    if (productPageId && productData) {
+      if (productData.id !== productPageId) {
+        dispatch(getProduct({id: productPageId}));
+      }
+      document.title = productData.name;
     }
-    document.title = productData.name;
+    return () => {
+      document.title = APP_NAME;
+    };
   }, [dispatch, productData, productPageId]);
+
+  if (productData) {
+    productPageInfo = formatProductData(productData);
+  } else {
+    navigate(RouterPaths.notFound());
+    return (
+      <>
+      </>
+    );
+  }
 
   const addToCartClickHandler = (catalogCardData: CatalogCardData) => {
     dispatch(showModal(<PopupAddItem catalogCardData={catalogCardData}/>));
@@ -45,6 +63,7 @@ export function ProductPage ():JSX.Element {
       left: 0,
     });
   };
+
 
   return (
     <div className="wrapper">
@@ -63,8 +82,10 @@ export function ProductPage ():JSX.Element {
                   <Picture
                     previewImgWebp = {productPageInfo.previewImgWebp} previewImgWebp2x = {productPageInfo.previewImgWebp2x}
                     previewImg = {productPageInfo.previewImg} previewImg2x = {productPageInfo.previewImg2x}
-                    width = {560} height = {480}
-                    alt = {productPageInfo.name}
+                    imageParams={{
+                      ...ImagesParams.productPage.productContainer,
+                      alt: productPageInfo.name
+                    }}
                   />
                 </div>
                 <div className="product__content">
@@ -76,9 +97,8 @@ export function ProductPage ():JSX.Element {
                   </div>
                   <p className="product__price"><span className="visually-hidden">Цена:</span>{productPageInfo.price} ₽</p>
                   <button className="btn btn--purple" type="button" onClick={() => addToCartClickHandler(productPageInfo)}>
-                    <svg width={24} height={16} aria-hidden="true">
-                      <use xlinkHref="#icon-add-basket" />
-                    </svg>Добавить в корзину
+                    <IconAddBasket/>
+                    Добавить в корзину
                   </button>
                   <div className="tabs product__tabs">
                     <div className="tabs__controls product__tabs-controls">
