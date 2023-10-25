@@ -1,5 +1,4 @@
 import { ProductCategory } from '../consts/enums';
-import { PRODUCTS_PER_PAGE, REVIEWS_PER_PAGE } from '../consts/global';
 import { ProductData, ReviewData } from '../types/data-types';
 
 export const formatPrice = (price: number) => price.toString().replace(/(\d)(?=(\d{3})+(\D|$))/g, '$1 ');
@@ -25,21 +24,21 @@ export const formatReviewData = (reviewData: ReviewData) => {
   });
 };
 
-export const productsDataToCatalogList = (productsData: ProductData[], currentPage: number) =>
+export const productsDataToCatalogList = (productsData: ProductData[], currentPage: number, maxPage: number) =>
   productsData
     .slice(
-      PRODUCTS_PER_PAGE * (currentPage - 1),
-      PRODUCTS_PER_PAGE * currentPage
+      maxPage * (currentPage - 1),
+      maxPage * currentPage
     )
     .map(formatProductData);
 
 
-export const reviewsDataToReviewsList = (reviewsData: ReviewData[], currentPage: number) =>
+export const reviewsDataToReviewsList = (reviewsData: ReviewData[], currentPage: number, reviewsPerPage: number) =>
   reviewsData
     .map(formatReviewData)
     .sort((review1, review2) =>
-      new Date(review2.createAt.dateTime).getTime() - new Date(review1.createAt.dateTime).getTime())// sorting by time
-    .slice(0, REVIEWS_PER_PAGE * currentPage);
+      new Date(review2.createAt.dateTime).getTime() - new Date(review1.createAt.dateTime).getTime())
+    .slice(0, reviewsPerPage * currentPage);
 
 
 export const formatTypeAndCategory = (type:string, category:ProductCategory) => {

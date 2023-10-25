@@ -8,7 +8,7 @@ import { CatalogCardData } from '../../types/data-types';
 import { RouterPaths } from '../../consts/router-paths';
 import { Rating } from '../rating';
 import { Picture } from '../picture';
-import { ImagesParams } from '../../consts/global';
+import { ImagesParams, PRODUCTS_PER_PAGE } from '../../consts/global';
 
 export function CatalogProductsList ():JSX.Element {
 
@@ -17,7 +17,7 @@ export function CatalogProductsList ():JSX.Element {
   const [searchParams] = useSearchParams();
   const currentPage = +(searchParams.get('page') || 1);
 
-  const catalogCardsData = productsDataToCatalogList(productsListData, currentPage);
+  const catalogCardsData = productsDataToCatalogList(productsListData, currentPage, PRODUCTS_PER_PAGE);
 
   const buyButtonClickHandler = (catalogCardData: CatalogCardData) => {
     dispatch(showModal(<PopupAddItem catalogCardData={catalogCardData}/>));

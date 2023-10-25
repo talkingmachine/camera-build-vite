@@ -1,6 +1,7 @@
 import { useSearchParams } from 'react-router-dom';
 import { getPaginationInfo } from '../../utils/get-pagination-info';
 import classNames from 'classnames';
+import { PRODUCTS_PER_PAGE } from '../../consts/global';
 
 type CatalogPaginationProps = {
   listLength: number;
@@ -10,7 +11,7 @@ export const CatalogPagination:React.FC<CatalogPaginationProps> = ({listLength}:
   const [searchParams, setSearchParams] = useSearchParams();
   const currentPage = +(searchParams.get('page') || 1);
 
-  const paginationInfo = getPaginationInfo(currentPage, listLength);
+  const paginationInfo = getPaginationInfo(currentPage, listLength, PRODUCTS_PER_PAGE);
 
   const changePageHandler = (evt: React.MouseEvent<HTMLAnchorElement, MouseEvent>, targetPage: number) => {
     evt.preventDefault();

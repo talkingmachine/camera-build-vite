@@ -29,8 +29,10 @@ export function ProductSimilar ():JSX.Element {
   const buttonNextElement = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    dispatch(getSimilarList({id: product.id}));
-  }, [dispatch, product.id]);
+    if (product) {
+      dispatch(getSimilarList({id: product.id}));
+    }
+  }, [dispatch, product]);
 
   const buyButtonClickHandler = (catalogCardData: CatalogCardData) => {
     dispatch(showModal(<PopupAddItem catalogCardData={catalogCardData}/>));

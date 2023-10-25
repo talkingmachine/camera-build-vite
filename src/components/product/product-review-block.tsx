@@ -16,7 +16,7 @@ export const ProductReviewBlock:React.FC<ProductReviewBlockProps> = ({id}: Produ
   const dispatch = useAppDispatch();
   const reviewsListData = useAppSelector((state) => state.DATA.reviewsList);
   const [currentPage, setCurrentPage] = useState(1);
-  const reviewsList = reviewsDataToReviewsList(reviewsListData, currentPage);
+  const reviewsList = reviewsDataToReviewsList(reviewsListData, currentPage, REVIEWS_PER_PAGE);
 
   const showMoreButtonClickHandler = () => {
     setCurrentPage((prev) => prev + 1);
