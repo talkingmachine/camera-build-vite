@@ -1,30 +1,21 @@
 
-export const getPaginationInfo = (currentPage: number, listLength: number, productsPerPage: number) => {
+export const getPaginationInfo = (currentPage: number, listLength: number, productsPerPage: number, pagesPerRow: number) => {
   const pages = Math.ceil(listLength / productsPerPage);
 
   if (listLength <= productsPerPage) {
     return false;
   }
 
-  const getPageNumbers = () => {
-    if (pages === 2) {
-      return [1, 2];
+  const pageNumbers = [];
+  const pagesStackSupremum = pagesPerRow * Math.ceil(currentPage / pagesPerRow);
+  for (let i = pagesPerRow - 1; i >= 0; i--) {
+    if (pagesStackSupremum - i <= pages) {
+      pageNumbers.push(pagesStackSupremum - i);
     }
-
-    const res = [currentPage - 1, currentPage, currentPage + 1];
-    if (res[0] < 1) {
-      return res.map((pageNumber) => pageNumber + 1);
-    } else if (res[res.length - 1] > pages) {
-      return res.map((pageNumber) => pageNumber - 1);
-    }
-
-    return res;
-  };
-
-  const pageNumbers = getPageNumbers();
+  }
 
   return ({
-    nextButton: pageNumbers[pageNumbers.length - 1] !== pages,
+    nextButton: pageNumbers[pageNumbers.length - 1] < pages,
     prevButton: pageNumbers[0] !== 1,
     pageNumbers: pageNumbers
   });

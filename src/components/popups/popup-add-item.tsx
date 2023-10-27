@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import { ImagesParams } from '../../consts/global';
 import { useAppDispatch } from '../../hooks/typed-wrappers';
 import { removeModal } from '../../store/actions';
@@ -18,9 +19,18 @@ export const PopupAddItem:React.FC<PopupAddItemProps> = ({catalogCardData}: Popu
     dispatch(removeModal());
   };
 
+  const focusElements = {
+    firstFocusElement: useRef<HTMLButtonElement>(null),
+    lastFocusElement: useRef<HTMLButtonElement>(null),
+  };
+
   return (
     <div className="modal__content">
       <p className="title title--h4">Добавить товар в корзину</p>
+      <span tabIndex={1} onFocus={() => {
+        focusElements.lastFocusElement.current?.focus();
+      }}
+      />
       <div className="basket-item basket-item--short">
         <div className="basket-item__img">
           <Picture
@@ -49,7 +59,9 @@ export const PopupAddItem:React.FC<PopupAddItemProps> = ({catalogCardData}: Popu
         <button
           className="btn btn--purple modal__btn modal__btn--fit-width"
           type="button"
+          tabIndex={2}
           autoFocus
+          ref={focusElements.firstFocusElement}
         >
           <IconAddBasket/>
           Добавить в корзину
@@ -58,11 +70,17 @@ export const PopupAddItem:React.FC<PopupAddItemProps> = ({catalogCardData}: Popu
       <button
         className="cross-btn"
         type="button"
+        tabIndex={3}
         aria-label="Закрыть попап"
         onClick={closePopupHandler}
+        ref={focusElements.lastFocusElement}
       >
         <IconClose/>
       </button>
+      <span tabIndex={4} onFocus={() => {
+        focusElements.firstFocusElement.current?.focus();
+      }}
+      />
     </div>
   );
 };
