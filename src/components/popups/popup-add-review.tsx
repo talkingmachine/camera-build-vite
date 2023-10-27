@@ -10,6 +10,7 @@ import classNames from 'classnames';
 import { FormReviewNames } from '../../consts/enums';
 import { IconSnowflake } from '../icon-components/icon-snowflake';
 import { IconClose } from '../icon-components/icon-close';
+import { useRef } from 'react';
 
 type PopupAddReviewProps = {
   cameraId: number;
@@ -44,9 +45,18 @@ export const PopupAddReview:React.FC<PopupAddReviewProps> = ({cameraId}: PopupAd
     dispatch(showModal(<PopupReviewSuccess/>));
   };
 
+  const focusElements = {
+    firstFocusElement: useRef<HTMLInputElement>(null),
+    lastFocusElement: useRef<HTMLButtonElement>(null),
+  };
+
   return (
     <div className="modal__content">
       <p className="title title--h4">Оставить отзыв</p>
+      <span tabIndex={1} onFocus={() => {
+        focusElements.lastFocusElement.current?.focus();
+      }}
+      />
       <div className="form-review">
         <form onSubmit={(event) => void handleSubmit(formSubmitHandler)(event)}>
           <div className="form-review__rate">
@@ -59,31 +69,31 @@ export const PopupAddReview:React.FC<PopupAddReviewProps> = ({cameraId}: PopupAd
                   <input
                     className="visually-hidden" id="star-5"
                     {...register(FormReviewNames.rating, { required: 'Нужно оценить товар'})}
-                    type="radio" defaultValue={5}
+                    type="radio" defaultValue={5} autoFocus tabIndex={2} ref={focusElements.firstFocusElement}
                   />
                   <label className="rate__label" htmlFor="star-5" title="Отлично" />
                   <input
                     className="visually-hidden" id="star-4"
                     {...register(FormReviewNames.rating, { required: 'Нужно оценить товар'})}
-                    type="radio" defaultValue={4}
+                    type="radio" defaultValue={4} tabIndex={3}
                   />
                   <label className="rate__label" htmlFor="star-4" title="Хорошо" />
                   <input
                     className="visually-hidden" id="star-3"
                     {...register(FormReviewNames.rating, { required: 'Нужно оценить товар'})}
-                    type="radio" defaultValue={3}
+                    type="radio" defaultValue={3} tabIndex={4}
                   />
                   <label className="rate__label" htmlFor="star-3" title="Нормально" />
                   <input
                     className="visually-hidden" id="star-2"
                     {...register(FormReviewNames.rating, { required: 'Нужно оценить товар'})}
-                    type="radio" defaultValue={2}
+                    type="radio" defaultValue={2} tabIndex={5}
                   />
                   <label className="rate__label" htmlFor="star-2" title="Плохо" />
                   <input
                     className="visually-hidden" id="star-1"
                     {...register(FormReviewNames.rating, { required: 'Нужно оценить товар'})}
-                    type="radio" defaultValue={1}
+                    type="radio" defaultValue={1} tabIndex={6}
                   />
                   <label className="rate__label" htmlFor="star-1" title="Ужасно" />
                 </div>
@@ -101,7 +111,7 @@ export const PopupAddReview:React.FC<PopupAddReviewProps> = ({cameraId}: PopupAd
                 <input
                   type="text"
                   placeholder="Введите ваше имя"
-                  autoFocus
+                  tabIndex={7}
                   {...register(FormReviewNames.userName, { required: 'Нужно указать имя',
                     minLength: { value: REVIEW_SYMBOLS.min, message: `Минимальная длина - ${REVIEW_SYMBOLS.min} символa` },
                     maxLength: { value: REVIEW_SYMBOLS.max, message: `Максимальная длина - ${REVIEW_SYMBOLS.max} символов` },
@@ -118,6 +128,7 @@ export const PopupAddReview:React.FC<PopupAddReviewProps> = ({cameraId}: PopupAd
                 <input
                   type="text"
                   placeholder="Основные преимущества товара"
+                  tabIndex={8}
                   {...register(FormReviewNames.advantage, { required: 'Нужно указать достоинства',
                     minLength: { value: REVIEW_SYMBOLS.min, message: `Минимальная длина - ${REVIEW_SYMBOLS.min} символa` },
                     maxLength: { value: REVIEW_SYMBOLS.max, message: `Максимальная длина - ${REVIEW_SYMBOLS.max} символов` },
@@ -134,6 +145,7 @@ export const PopupAddReview:React.FC<PopupAddReviewProps> = ({cameraId}: PopupAd
                 <input
                   type="text"
                   placeholder="Главные недостатки товара"
+                  tabIndex={9}
                   {...register(FormReviewNames.disadvantage, { required: 'Нужно указать недостатки',
                     minLength: { value: REVIEW_SYMBOLS.min, message: `Минимальная длина - ${REVIEW_SYMBOLS.min} символa` },
                     maxLength: { value: REVIEW_SYMBOLS.max, message: `Максимальная длина - ${REVIEW_SYMBOLS.max} символов` },
@@ -149,6 +161,7 @@ export const PopupAddReview:React.FC<PopupAddReviewProps> = ({cameraId}: PopupAd
                 </span>
                 <textarea
                   placeholder="Поделитесь своим опытом покупки"
+                  tabIndex={10}
                   {...register(FormReviewNames.review, { required: 'Нужно добавить комментарий',
                     minLength: { value: REVIEW_SYMBOLS.min, message: `Минимальная длина - ${REVIEW_SYMBOLS.min} символa` },
                     maxLength: { value: REVIEW_SYMBOLS.max, message: `Максимальная длина - ${REVIEW_SYMBOLS.max} символов` },
@@ -158,17 +171,28 @@ export const PopupAddReview:React.FC<PopupAddReviewProps> = ({cameraId}: PopupAd
               <div className="custom-textarea__error"><ErrorMessage errors={errors} name={FormReviewNames.review}/></div>
             </div>
           </div>
-          <button className="btn btn--purple form-review__btn" type="submit">Отправить отзыв</button>
+          <button
+            className="btn btn--purple form-review__btn"
+            type="submit"
+            tabIndex={11}
+          >Отправить отзыв
+          </button>
         </form>
       </div>
       <button
         className="cross-btn"
         type="button"
+        tabIndex={12}
         aria-label="Закрыть попап"
         onClick={closePopupHandler}
+        ref={focusElements.lastFocusElement}
       >
         <IconClose/>
       </button>
+      <span tabIndex={13} onFocus={() => {
+        focusElements.firstFocusElement.current?.focus();
+      }}
+      />
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import { useSearchParams } from 'react-router-dom';
 import { getPaginationInfo } from '../../utils/get-pagination-info';
 import classNames from 'classnames';
-import { PRODUCTS_PER_PAGE } from '../../consts/global';
+import { PAGES_PER_ROW, PRODUCTS_PER_PAGE } from '../../consts/global';
 
 type CatalogPaginationProps = {
   listLength: number;
@@ -9,13 +9,34 @@ type CatalogPaginationProps = {
 export const CatalogPagination:React.FC<CatalogPaginationProps> = ({listLength}: CatalogPaginationProps) => {
 
   const [searchParams, setSearchParams] = useSearchParams();
-  const currentPage = +(searchParams.get('page') || 1);
+  const currentPage = Number(searchParams.get('page') || 1);
 
-  const paginationInfo = getPaginationInfo(currentPage, listLength, PRODUCTS_PER_PAGE);
+  const paginationInfo = getPaginationInfo(currentPage, listLength, PRODUCTS_PER_PAGE, PAGES_PER_ROW);
 
-  const changePageHandler = (evt: React.MouseEvent<HTMLAnchorElement, MouseEvent>, targetPage: number) => {
+  const changePageHandler = (evt: React.MouseEvent<HTMLAnchorElement, MouseEvent>, changeType: 'prev'|'next'|'target', target: null | number = null) => {
     evt.preventDefault();
-    setSearchParams({page: targetPage.toString()});
+    if (paginationInfo) {
+      let searchParam: string;
+      switch (changeType) {
+        case 'next':
+          searchParam = (paginationInfo.pageNumbers[paginationInfo.pageNumbers.length - 1] + 1).toString();
+          break;
+        case 'prev':
+          searchParam = (paginationInfo.pageNumbers[0] - 1).toString();
+          break;
+        case 'target':
+          if (target) {
+            searchParam = target.toString();
+          } else {
+            throw Error('target page number is null');
+          }
+          break;
+      }
+
+      setSearchParams({
+        page: searchParam
+      });
+    }
   };
 
   return (
@@ -26,7 +47,7 @@ export const CatalogPagination:React.FC<CatalogPaginationProps> = ({listLength}:
             <li className="pagination__item">
               <a
                 className="pagination__link pagination__link--text"
-                onClick={(evt) => changePageHandler(evt, currentPage - 1)}
+                onClick={(evt) => changePageHandler(evt, 'prev')}
                 href="#"
               >Назад
               </a>
@@ -36,7 +57,7 @@ export const CatalogPagination:React.FC<CatalogPaginationProps> = ({listLength}:
               <a
                 className={classNames('pagination__link', {'pagination__link--active': currentPage === pageNumber})}
                 onClick={(evt) => {
-                  changePageHandler(evt, pageNumber);
+                  changePageHandler(evt, 'target', pageNumber);
                 }}
                 href="#"
               >{pageNumber}
@@ -47,7 +68,7 @@ export const CatalogPagination:React.FC<CatalogPaginationProps> = ({listLength}:
             <li className="pagination__item">
               <a
                 className="pagination__link pagination__link--text"
-                onClick={(evt) => changePageHandler(evt, currentPage + 1)}
+                onClick={(evt) => changePageHandler(evt, 'next')}
                 href="#"
               >Далее
               </a>
