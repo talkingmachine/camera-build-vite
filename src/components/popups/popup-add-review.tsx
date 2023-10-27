@@ -27,7 +27,8 @@ export const PopupAddReview:React.FC<PopupAddReviewProps> = ({cameraId}: PopupAd
     register,
     handleSubmit,
     watch,
-    formState:{errors}
+    formState:{errors},
+    setFocus
   } = useForm();
 
   const formSubmitHandler = (data: FieldValues) => {
@@ -46,7 +47,6 @@ export const PopupAddReview:React.FC<PopupAddReviewProps> = ({cameraId}: PopupAd
   };
 
   const focusElements = {
-    firstFocusElement: useRef<HTMLInputElement>(null),
     lastFocusElement: useRef<HTMLButtonElement>(null),
   };
 
@@ -69,7 +69,7 @@ export const PopupAddReview:React.FC<PopupAddReviewProps> = ({cameraId}: PopupAd
                   <input
                     className="visually-hidden" id="star-5"
                     {...register(FormReviewNames.rating, { required: 'Нужно оценить товар'})}
-                    type="radio" defaultValue={5} autoFocus tabIndex={2} ref={focusElements.firstFocusElement}
+                    type="radio" defaultValue={5} autoFocus tabIndex={2}
                   />
                   <label className="rate__label" htmlFor="star-5" title="Отлично" />
                   <input
@@ -190,7 +190,7 @@ export const PopupAddReview:React.FC<PopupAddReviewProps> = ({cameraId}: PopupAd
         <IconClose/>
       </button>
       <span tabIndex={13} onFocus={() => {
-        focusElements.firstFocusElement.current?.focus();
+        setFocus(FormReviewNames.rating); // because registered form-fields already have refs
       }}
       />
     </div>
