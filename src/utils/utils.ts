@@ -1,6 +1,7 @@
+import { SortDirection, SortType } from '../consts/enums';
 import { defaultBreadcrumbData, messages } from '../consts/global';
 import { RouterPaths, RouterPathsNames } from '../consts/router-paths';
-import { CatalogCardData } from '../types/data-types';
+import { CatalogCardData, ProductData } from '../types/data-types';
 import { BreadcrumbData } from '../types/state-types';
 
 
@@ -30,3 +31,20 @@ export const getBreadcrumbsData = (pathname: string, productPageInfo: CatalogCar
 
   return breadcrumbsListData;
 };
+
+export const getSortedProductsList = (productsList: ProductData[], sortType: SortType, sortDirection: SortDirection) =>
+  productsList.sort((productA, productB) => {
+    let diff;
+    switch (sortType) {
+      case SortType.Popular:
+        diff = productA.rating - productB.rating;
+        break;
+      case SortType.Price:
+        diff = productA.price - productB.price;
+        break;
+      default:
+        diff = productA.rating - productB.rating;
+        break;
+    }
+    return diff * sortDirection;
+  });

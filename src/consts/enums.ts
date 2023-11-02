@@ -34,3 +34,12 @@ export enum ProductLevel {
   'Профессиональный' = 'Профессиональный'
 }
 
+export enum SortDirection {
+  'Descending' = -1,
+  'Ascending' = 1
+}
+
+export enum SortType {
+  'Price' = 'Price',
+  'Popular' = 'Popular'
+}
