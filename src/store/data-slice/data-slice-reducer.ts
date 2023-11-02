@@ -2,6 +2,8 @@ import { createSlice } from '@reduxjs/toolkit';
 import { ReducerNameSpaces } from '../../consts/enums';
 import { getProduct, getProductsList, getPromoList, getReviewsList, getSimilarList, postReview } from '../api-actions';
 import { dataInitialState } from '../../consts/global';
+import { sortProductsList } from '../actions';
+import { getSortedProductsList } from '../../utils/utils';
 
 
 export const dataSlice = createSlice({
@@ -31,6 +33,10 @@ export const dataSlice = createSlice({
       })
       .addCase(postReview.fulfilled, (state, action) => {
         state.reviewsList.push(action.payload);
+      })
+      .addCase(sortProductsList, (state, action) => {
+        const {sortType, sortDirection} = action.payload;
+        state.productsList = getSortedProductsList(state.productsList, sortType, sortDirection);
       });
   },
 });
