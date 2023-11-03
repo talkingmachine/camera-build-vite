@@ -43,7 +43,7 @@ export function CatalogSort ():JSX.Element {
                 type="radio"
                 id="sortPrice"
                 name="sort"
-                checked={sortType === SortType.Price}
+                defaultChecked={sortType === SortType.Price}
                 onClick={() => changeSortTypeHandler(SortType.Price)}
               />
               <label htmlFor="sortPrice">по цене</label>
@@ -53,7 +53,7 @@ export function CatalogSort ():JSX.Element {
                 type="radio"
                 id="sortPopular"
                 name="sort"
-                checked={sortType === SortType.Popular}
+                defaultChecked={sortType === SortType.Popular}
                 onClick={() => changeSortTypeHandler(SortType.Popular)}
               />
               <label htmlFor="sortPopular">по популярности</label>
@@ -66,7 +66,7 @@ export function CatalogSort ():JSX.Element {
                 id="up"
                 name="sort-icon"
                 aria-label="По возрастанию"
-                checked={sortDirection === SortDirection.Ascending}
+                defaultChecked={sortDirection === SortDirection.Ascending}
                 onClick={() => changeSortDirectionHandler(SortDirection.Ascending)}
               />
               <label htmlFor="up">
@@ -79,7 +79,7 @@ export function CatalogSort ():JSX.Element {
                 id="down"
                 name="sort-icon"
                 aria-label="По убыванию"
-                checked={sortDirection === SortDirection.Descending}
+                defaultChecked={sortDirection === SortDirection.Descending}
                 onClick={() => changeSortDirectionHandler(SortDirection.Descending)}
               />
               <label htmlFor="down">

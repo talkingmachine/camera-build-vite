@@ -35,11 +35,34 @@ export enum ProductLevel {
 }
 
 export enum SortDirection {
-  'Descending' = -1,
-  'Ascending' = 1
+  Descending = -1,
+  Ascending = 1
 }
 
 export enum SortType {
-  'Price' = 'Price',
-  'Popular' = 'Popular'
+  Price = 'Price',
+  Popular = 'Popular'
 }
+
+export const FormFilter = {
+  priceMin: 'priceMin',
+  priceMax: 'priceMax',
+  category: {
+    name: 'category',
+    photocamera: 'photocamera',
+    videocamera: 'videocamera',
+  },
+  type: {
+    name: 'type',
+    digital: 'digital',
+    film: 'film',
+    snapshot: 'snapshot',
+    collection: 'collection',
+  },
+  level: {
+    name: 'level',
+    zero: 'zero',
+    nonProfessional: 'nonProfessional',
+    professional: 'professional'
+  }
+};
