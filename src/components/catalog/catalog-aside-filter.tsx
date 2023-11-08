@@ -1,13 +1,14 @@
 import { useForm } from 'react-hook-form';
 import { FormFilter } from '../../consts/enums';
 import { useSearchParams } from 'react-router-dom';
-import { FormEvent, useEffect } from 'react';
+import { useEffect } from 'react';
 
 export function CatalogAsideFilter ():JSX.Element {
 
   type FormInputs = {
     [key in keyof typeof FormFilter]: string;
   }
+  type ParamsType = {[key: string]: string}
 
   const {
     register,
@@ -19,34 +20,48 @@ export function CatalogAsideFilter ():JSX.Element {
   } = useForm();
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const formChangeHandler = () => {
-    setSearchParams(getValues() as FormInputs);
+  const formChangeHandler = () => { // when filters changed, add new param
+    const values = (getValues() as FormInputs);
+    const newParams: ParamsType = {};
+
+    for (const key in values) {
+      const value = values[key as keyof FormInputs];
+      if (value) {
+        newParams[key] = value;
+      }
+    }
+    setSearchParams(newParams);
   };
 
-  const changeCategoryHandler = (evt: FormEvent<HTMLFieldSetElement>) => {
-    const options = Object.keys(FormFilter.category) as (keyof typeof FormFilter.category)[];
-    options.forEach((option) => {
-      if (FormFilter.category[option] !== (evt.target as HTMLInputElement).value) {
-        resetField(FormFilter.category[option]);
-      }
-    });
+  const changeCategoryClickHandler = (evt: React.MouseEvent<HTMLInputElement>) => { // radio-like behavior
+    if ((evt.target as HTMLInputElement).value === (getValues(FormFilter.category.name) as string[])[0]) {
+      resetField(FormFilter.category.name);
+      formChangeHandler(); // onChange event after reset
+    } else {
+      resetField(FormFilter.category.name);
+      setValue(FormFilter.category.name, (evt.target as HTMLInputElement).value);
+    }
   };
 
   const resetFiltersHandler = () => {
-    formChangeHandler();
     reset();
+    formChangeHandler(); // onChange event after reset
   };
 
-  useEffect(() => {
-    for (const filter in FormFilter) {
-      // console.log('------');
-      // console.log(filter);
-      if (searchParams.has(filter)) {
+  const getFieldsDisabledStatus = () => {
+    const categoryField = watch(FormFilter.category.name) as string[];
+    return categoryField ? categoryField[0] === FormFilter.category.videocamera : false;
+  };
 
-        setValue(filter, searchParams.get(filter));
+
+  useEffect(() => {
+    for (const key in FormFilter) {
+      const value = searchParams.getAll(key);
+      if (value) {
+        setValue(key, value);
       }
     }
-  }, [getValues, searchParams, setSearchParams, setValue]);
+  }, [searchParams, setValue]);
 
 
   return (
@@ -76,14 +91,15 @@ export function CatalogAsideFilter ():JSX.Element {
             </div>
           </div>
         </fieldset>
-        <fieldset className="catalog-filter__block" onChange={changeCategoryHandler}>
+        <fieldset className="catalog-filter__block">
           <legend className="title title--h5">Категория</legend>
           <div className="custom-checkbox catalog-filter__item">
             <label>
               <input
                 type="checkbox"
-                defaultValue={FormFilter.category.photocamera}
-                {...register(FormFilter.category.photocamera)}
+                value={FormFilter.category.photocamera}
+                {...register(FormFilter.category.name)}
+                onClick={changeCategoryClickHandler}
               />
               <span className="custom-checkbox__icon" />
               <span className="custom-checkbox__label">Фотокамера</span>
@@ -93,8 +109,9 @@ export function CatalogAsideFilter ():JSX.Element {
             <label>
               <input
                 type="checkbox"
-                defaultValue={FormFilter.category.videocamera}
-                {...register(FormFilter.category.videocamera)}
+                value={FormFilter.category.videocamera}
+                {...register(FormFilter.category.name)}
+                onClick={changeCategoryClickHandler}
               />
               <span className="custom-checkbox__icon" />
               <span className="custom-checkbox__label">Видеокамера</span>
@@ -120,7 +137,7 @@ export function CatalogAsideFilter ():JSX.Element {
                 type="checkbox"
                 defaultValue={FormFilter.type.film}
                 {...register(FormFilter.type.name)}
-                disabled={watch(FormFilter.category.videocamera) === FormFilter.category.videocamera}
+                disabled={getFieldsDisabledStatus()}
               />
               <span className="custom-checkbox__icon" />
               <span className="custom-checkbox__label">Плёночная</span>
@@ -132,7 +149,7 @@ export function CatalogAsideFilter ():JSX.Element {
                 type="checkbox"
                 defaultValue={FormFilter.type.snapshot}
                 {...register(FormFilter.type.name)}
-                disabled={watch(FormFilter.category.videocamera) === FormFilter.category.videocamera}
+                disabled={getFieldsDisabledStatus()}
               />
               <span className="custom-checkbox__icon" />
               <span className="custom-checkbox__label">Моментальная</span>

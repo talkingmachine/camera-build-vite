@@ -44,6 +44,18 @@ export enum SortType {
   Popular = 'Popular'
 }
 
+export const LocalizeFilterNames = {
+  'Фотоаппарат': 'photocamera',
+  'Видеокамера': 'videocamera',
+  'Цифровая': 'digital',
+  'Плёночная': 'film',
+  'Моментальная': 'snapshot',
+  'Коллекционная': 'collection',
+  'Нулевой': 'zero',
+  'Любительский': 'nonProfessional',
+  'Профессиональный': 'professional'
+};
+
 export const FormFilter = {
   priceMin: 'priceMin',
   priceMax: 'priceMax',

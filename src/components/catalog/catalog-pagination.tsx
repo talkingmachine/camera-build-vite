@@ -34,6 +34,7 @@ export const CatalogPagination:React.FC<CatalogPaginationProps> = ({listLength}:
       }
 
       setSearchParams({
+        ...searchParams,
         page: searchParam
       });
     }
