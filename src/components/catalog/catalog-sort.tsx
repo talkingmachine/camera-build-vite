@@ -43,8 +43,8 @@ export function CatalogSort ():JSX.Element {
                 type="radio"
                 id="sortPrice"
                 name="sort"
-                defaultChecked={sortType === SortType.Price}
-                onClick={() => changeSortTypeHandler(SortType.Price)}
+                checked={sortType === SortType.Price}
+                onChange={() => changeSortTypeHandler(SortType.Price)}
               />
               <label htmlFor="sortPrice">по цене</label>
             </div>
@@ -53,8 +53,8 @@ export function CatalogSort ():JSX.Element {
                 type="radio"
                 id="sortPopular"
                 name="sort"
-                defaultChecked={sortType === SortType.Popular}
-                onClick={() => changeSortTypeHandler(SortType.Popular)}
+                checked={sortType === SortType.Popular}
+                onChange={() => changeSortTypeHandler(SortType.Popular)}
               />
               <label htmlFor="sortPopular">по популярности</label>
             </div>
@@ -66,8 +66,8 @@ export function CatalogSort ():JSX.Element {
                 id="up"
                 name="sort-icon"
                 aria-label="По возрастанию"
-                defaultChecked={sortDirection === SortDirection.Ascending}
-                onClick={() => changeSortDirectionHandler(SortDirection.Ascending)}
+                checked={sortDirection === SortDirection.Ascending}
+                onChange={() => changeSortDirectionHandler(SortDirection.Ascending)}
               />
               <label htmlFor="up">
                 <IconSort/>
@@ -79,8 +79,8 @@ export function CatalogSort ():JSX.Element {
                 id="down"
                 name="sort-icon"
                 aria-label="По убыванию"
-                defaultChecked={sortDirection === SortDirection.Descending}
-                onClick={() => changeSortDirectionHandler(SortDirection.Descending)}
+                checked={sortDirection === SortDirection.Descending}
+                onChange={() => changeSortDirectionHandler(SortDirection.Descending)}
               />
               <label htmlFor="down">
                 <IconSort/>

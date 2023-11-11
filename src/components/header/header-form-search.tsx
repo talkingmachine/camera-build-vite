@@ -8,7 +8,7 @@ import { getSearchedProducts } from '../../utils/get-searched-products';
 
 export function HeaderFormSearch ():JSX.Element {
 
-  const products = useAppSelector((state) => state.DATA.productsList);
+  const products = useAppSelector((state) => state.DATA.productsList.data);
   const [isSelectListShown, setIsSelectListShown] = useState<boolean>(false);
   const [searchText, setSearchText] = useState<string>('');
 

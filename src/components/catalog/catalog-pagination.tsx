@@ -32,10 +32,9 @@ export const CatalogPagination:React.FC<CatalogPaginationProps> = ({listLength}:
           }
           break;
       }
-
-      setSearchParams({
-        ...searchParams,
-        page: searchParam
+      setSearchParams((prevParams) => {
+        prevParams.set('page', searchParam);
+        return prevParams;
       });
     }
   };

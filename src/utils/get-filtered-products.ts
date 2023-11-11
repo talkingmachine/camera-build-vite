@@ -13,7 +13,8 @@ const filterFunctions: {[key in keyof typeof FormFilter]: (key: string[]) => (pr
 
 export const getFilteredProducts = (array: ProductData[], searchParams: URLSearchParams) => {
   const activeFilters: {[key: string]: string[]} = {};
-  let newArray = array.slice(0);
+  let filteredArray = array.slice(0);
+  let filteredByPriceArray: ProductData[];
 
   for (const key in FormFilter) {
     const value = searchParams.getAll(key);
@@ -23,9 +24,16 @@ export const getFilteredProducts = (array: ProductData[], searchParams: URLSearc
   }
 
   for (const key in activeFilters) {
-    newArray = newArray.filter(filterFunctions[key as keyof typeof FormFilter](activeFilters[key]));
+    if (key !== FormFilter.priceMin && key !== FormFilter.priceMax) {
+      filteredArray = filteredArray.filter(filterFunctions[key as keyof typeof FormFilter](activeFilters[key]));
+      delete activeFilters[key];
+    }
+  }
+  filteredByPriceArray = filteredArray.slice(0);
+  for (const key in activeFilters) {
+    filteredByPriceArray = filteredByPriceArray.filter(filterFunctions[key as keyof typeof FormFilter](activeFilters[key]));
   }
 
-  return newArray;
+  return [filteredArray, filteredByPriceArray];
 };
 

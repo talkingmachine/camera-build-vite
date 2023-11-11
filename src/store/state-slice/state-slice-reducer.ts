@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { ReducerNameSpaces } from '../../consts/enums';
-import { removeModal, showModal } from '../actions';
+import { removeModal, setFilterPriceLimiters, showModal } from '../actions';
 import { statesInitialState } from '../../consts/global';
 
 
@@ -16,6 +16,9 @@ export const statesSlice = createSlice({
       })
       .addCase(removeModal, (state) => {
         state.popup = false;
+      })
+      .addCase(setFilterPriceLimiters, (state, action) => {
+        state.filterPriceLimiters = action.payload;
       });
   },
 });
