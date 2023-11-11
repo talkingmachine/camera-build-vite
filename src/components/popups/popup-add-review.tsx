@@ -98,7 +98,11 @@ export const PopupAddReview:React.FC<PopupAddReviewProps> = ({cameraId}: PopupAd
                   <label className="rate__label" htmlFor="star-1" title="Ужасно" />
                 </div>
                 <div className="rate__progress">
-                  <span className="rate__stars">{watch(FormReviewNames.rating, 0) ? watch(FormReviewNames.rating, 0) : 0}</span> <span>/</span> <span className="rate__all-stars">5</span>
+                  <span className="rate__stars">{
+                    watch(FormReviewNames.rating, 0) ?
+                      watch(FormReviewNames.rating, 0) : 0
+                  }
+                  </span> <span>/</span> <span className="rate__all-stars">5</span>
                 </div>
               </div>
               <p className="rate__message"><ErrorMessage errors={errors} name={FormReviewNames.rating}/></p>

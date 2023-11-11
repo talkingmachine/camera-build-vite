@@ -35,11 +35,48 @@ export enum ProductLevel {
 }
 
 export enum SortDirection {
-  'Descending' = -1,
-  'Ascending' = 1
+  Descending = -1,
+  Ascending = 1
 }
 
 export enum SortType {
-  'Price' = 'Price',
-  'Popular' = 'Popular'
+  Price = 'Price',
+  Popular = 'Popular'
 }
+
+export enum Status {
+  default = 'default',
+  downloaded = 'downloaded'
+}
+
+export const LocalizeFilterNames = {
+  'Фотоаппарат': 'photocamera',
+  'Видеокамера': 'videocamera',
+  'Цифровая': 'digital',
+  'Плёночная': 'film',
+  'Моментальная': 'snapshot',
+  'Коллекционная': 'collection',
+  'Нулевой': 'zero',
+  'Любительский': 'nonProfessional',
+  'Профессиональный': 'professional'
+};
+
+export const FormFilter = {
+  priceMin: 'priceMin',
+  priceMax: 'priceMax',
+  category: {
+    photocamera: 'photocamera',
+    videocamera: 'videocamera',
+  },
+  type: {
+    digital: 'digital',
+    film: 'film',
+    snapshot: 'snapshot',
+    collection: 'collection',
+  },
+  level: {
+    zero: 'zero',
+    nonProfessional: 'nonProfessional',
+    professional: 'professional'
+  }
+};

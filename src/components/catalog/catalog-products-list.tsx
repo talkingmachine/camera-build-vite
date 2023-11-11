@@ -2,31 +2,41 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/typed-wrappers';
 import { productsDataToCatalogList } from '../../utils/data-formatting';
 import { CatalogPagination } from './catalog-pagination';
-import { showModal } from '../../store/actions';
+import { setFilterPriceLimiters, showModal } from '../../store/actions';
 import { PopupAddItem } from '../popups/popup-add-item';
 import { CatalogCardData } from '../../types/data-types';
 import { RouterPaths } from '../../consts/router-paths';
 import { Rating } from '../rating';
 import { Picture } from '../picture';
 import { ImagesParams, PRODUCTS_PER_PAGE } from '../../consts/global';
+import { getFilteredProducts } from '../../utils/get-filtered-products';
+import { getPriceLimiters } from '../../utils/get-info-from-products';
+import { useEffect } from 'react';
 
 export function CatalogProductsList ():JSX.Element {
 
   const dispatch = useAppDispatch();
-  const productsListData = useAppSelector((state) => state.DATA.productsList);
+  const productsList = useAppSelector((state) => state.DATA.productsList);
   const [searchParams] = useSearchParams();
   const currentPage = +(searchParams.get('page') || 1);
 
-  const catalogCardsData = productsDataToCatalogList(productsListData, currentPage, PRODUCTS_PER_PAGE);
+  const [filteredArray, filteredByPriceArray] = getFilteredProducts(productsList.data, searchParams);
+  const catalogCardsData = productsDataToCatalogList(filteredByPriceArray, currentPage, PRODUCTS_PER_PAGE);
 
   const buyButtonClickHandler = (catalogCardData: CatalogCardData) => {
     dispatch(showModal(<PopupAddItem catalogCardData={catalogCardData}/>));
   };
 
+  useEffect(() => {
+    dispatch(setFilterPriceLimiters(
+      getPriceLimiters(filteredArray)
+    ));
+  }, [dispatch, filteredArray, productsList.status]);
+
   return (
     <>
       <div className="cards catalog__cards">
-        {catalogCardsData.map((catalogCardData) => (
+        {catalogCardsData.length ? catalogCardsData.map((catalogCardData) => (
           <div key={catalogCardData.id} className="product-card">
             <div className="product-card__img">
               <Picture
@@ -59,9 +69,9 @@ export function CatalogProductsList ():JSX.Element {
               </Link>
             </div>
           </div>
-        ))}
+        )) : <div className="title title--h5">По вашему запросу ничего не найдено</div>}
       </div>
-      <CatalogPagination listLength={productsListData.length}/>
+      <CatalogPagination listLength={filteredByPriceArray.length}/>
     </>
   );
 }

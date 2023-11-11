@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { ReducerNameSpaces } from '../../consts/enums';
+import { ReducerNameSpaces, Status } from '../../consts/enums';
 import { getProduct, getProductsList, getPromoList, getReviewsList, getSimilarList, postReview } from '../api-actions';
 import { dataInitialState } from '../../consts/global';
 import { sortProductsList } from '../actions';
@@ -14,7 +14,8 @@ export const dataSlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(getProductsList.fulfilled, (state, action) => {
-        state.productsList = action.payload;
+        state.productsList.data = action.payload;
+        state.productsList.status = Status.downloaded;
       })
       .addCase(getSimilarList.fulfilled, (state, action) => {
         state.similarList = action.payload;
@@ -36,7 +37,7 @@ export const dataSlice = createSlice({
       })
       .addCase(sortProductsList, (state, action) => {
         const {sortType, sortDirection} = action.payload;
-        state.productsList = getSortedProductsList(state.productsList, sortType, sortDirection);
+        state.productsList.data = getSortedProductsList(state.productsList.data, sortType, sortDirection);
       });
   },
 });

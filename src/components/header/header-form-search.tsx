@@ -4,11 +4,11 @@ import { useAppSelector } from '../../hooks/typed-wrappers';
 import { ChangeEvent, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { RouterPaths } from '../../consts/router-paths';
-import { getFilteredProducts } from '../../utils/get-filtered-products';
+import { getSearchedProducts } from '../../utils/get-searched-products';
 
 export function HeaderFormSearch ():JSX.Element {
 
-  const products = useAppSelector((state) => state.DATA.productsList);
+  const products = useAppSelector((state) => state.DATA.productsList.data);
   const [isSelectListShown, setIsSelectListShown] = useState<boolean>(false);
   const [searchText, setSearchText] = useState<string>('');
 
@@ -23,7 +23,7 @@ export function HeaderFormSearch ():JSX.Element {
       }
     }
   };
-  const filteredProducts = getFilteredProducts(products, searchText);
+  const filteredProducts = getSearchedProducts(products, searchText);
 
   const clearButtonClickHandler = () => {
     setSearchText('');
