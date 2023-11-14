@@ -6,7 +6,7 @@ import { CatalogSort } from '../../components/catalog/catalog-sort';
 import { Footer } from '../../components/footer';
 import { Header } from '../../components/header/header';
 
-export function CatalogPage ():JSX.Element {
+export default function CatalogPage ():JSX.Element {
   return (
     <div className="wrapper">
       <Header/>

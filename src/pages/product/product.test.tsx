@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { ProductPage } from './product';
+import ProductPage from './product';
 import createAPI from '../../services/api-axios';
 import thunk from 'redux-thunk';
 import { Action } from 'redux';
@@ -10,6 +10,7 @@ import { State } from '../../types/data-types';
 import { AppThunkDispatch } from '../../utils/mocks';
 import userEvent from '@testing-library/user-event';
 import { dataInitialState, statesInitialState } from '../../consts/global';
+import { Status } from '../../consts/enums';
 
 
 describe('Component: Product', () => {
@@ -20,7 +21,7 @@ describe('Component: Product', () => {
 
   beforeAll(() => {
     store = mockStoreCreator({
-      DATA: dataInitialState,
+      DATA: {...dataInitialState, product: {data: dataInitialState.product.data, status: Status.downloaded}},
       STATES: statesInitialState
     });
   });

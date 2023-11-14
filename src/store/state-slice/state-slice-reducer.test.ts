@@ -11,9 +11,7 @@ describe('Reducer: user interaction slice', () => {
   it('should return JSX.Element when showModel action is called', () => {
     const testInitialState = statesInitialState;
     const expectedState = {} as JSX.Element;
-
     const result = statesSlice.reducer(testInitialState, showModal({} as JSX.Element));
-
     expect(result.popup).toStrictEqual(expectedState);
   });
 });

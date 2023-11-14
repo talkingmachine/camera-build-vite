@@ -1,19 +1,29 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { CatalogPage } from '../../pages/catalog/catalog';
 import { RouterPaths } from '../../consts/router-paths';
-import { ProductPage } from '../../pages/product/product';
 import { Modal } from '../popups/modal';
 import { NotFoundPage } from '../../pages/not-found/not-found';
 import { ScrollToTop } from '../scroll-top';
+import { Suspense, lazy } from 'react';
+import { LoadingSpinner } from '../loading-spinner';
+import { ToastContainer } from 'react-toastify';
 
+const ProductPage = lazy(() => import ('../../pages/product/product'));
+const CatalogPage = lazy(() => import ('../../pages/catalog/catalog'));
 
 export function App ():JSX.Element {
   return (
     <BrowserRouter>
       <ScrollToTop/>
+      <ToastContainer/>
       <Routes>
-        <Route path={RouterPaths.catalog()} element={<CatalogPage />} />
-        <Route path={RouterPaths.productWithAnyId()} element={<ProductPage/>} />
+        <Route
+          path={RouterPaths.catalog()}
+          element={<Suspense fallback={<LoadingSpinner/>}><CatalogPage/></Suspense>}
+        />
+        <Route
+          path={RouterPaths.productWithAnyId()}
+          element={<Suspense fallback={<LoadingSpinner/>}><ProductPage/></Suspense>}
+        />
         <Route path={RouterPaths.notFound()} element={<NotFoundPage/>}/>
       </Routes>
       <Modal/>

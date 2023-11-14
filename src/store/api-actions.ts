@@ -2,6 +2,8 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
 import { AppDispatch, ProductData, PromoData, ReviewData, ReviewPostData, State } from '../types/data-types';
 import { APIRoutes } from '../consts/api-routes';
+import { showRejectedMessage } from '../utils/get-error-messages';
+import { StatusMessages } from '../consts/enums';
 
 type ThunkConfig = {
   dispatch: AppDispatch;
@@ -16,6 +18,7 @@ export const getProductsList = createAsyncThunk<ProductData[], undefined, ThunkC
       const {data} = await api.get<ProductData[]>(APIRoutes.GetProductsList());
       return data;
     } catch (err) {
+      showRejectedMessage(StatusMessages.productsListRejected);
       return rejectWithValue(err);
     }
   }
@@ -28,6 +31,7 @@ export const getSimilarList = createAsyncThunk<ProductData[], {id: number}, Thun
       const {data} = await api.get<ProductData[]>(APIRoutes.GetSimilarList(id));
       return data;
     } catch (err) {
+      showRejectedMessage(StatusMessages.similarListRejected);
       return rejectWithValue(err);
     }
   }
@@ -40,6 +44,7 @@ export const getProduct = createAsyncThunk<ProductData, {id: number}, ThunkConfi
       const {data} = await api.get<ProductData>(APIRoutes.GetProduct(id));
       return data;
     } catch (err) {
+      showRejectedMessage(StatusMessages.productRejected);
       return rejectWithValue(err);
     }
   }
@@ -52,6 +57,7 @@ export const getPromoList = createAsyncThunk<PromoData[], undefined, ThunkConfig
       const {data} = await api.get<PromoData[]>(APIRoutes.GetPromoList());
       return data;
     } catch (err) {
+      showRejectedMessage(StatusMessages.promoListRejected);
       return rejectWithValue(err);
     }
   }
@@ -64,6 +70,7 @@ export const getReviewsList = createAsyncThunk<ReviewData[], {id: number}, Thunk
       const {data} = await api.get<ReviewData[]>(APIRoutes.GetReviewsList(id));
       return data;
     } catch (err) {
+      showRejectedMessage(StatusMessages.reviewsListRejected);
       return rejectWithValue(err);
     }
   }

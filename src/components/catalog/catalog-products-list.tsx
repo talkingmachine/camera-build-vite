@@ -12,6 +12,8 @@ import { ImagesParams, PRODUCTS_PER_PAGE } from '../../consts/global';
 import { getFilteredProducts } from '../../utils/get-filtered-products';
 import { getPriceLimiters } from '../../utils/get-info-from-products';
 import { useEffect } from 'react';
+import { Status, StatusMessages } from '../../consts/enums';
+import { LoadingSpinner } from '../loading-spinner';
 
 export function CatalogProductsList ():JSX.Element {
 
@@ -33,45 +35,59 @@ export function CatalogProductsList ():JSX.Element {
     ));
   }, [dispatch, filteredArray, productsList.status]);
 
-  return (
-    <>
+  if (productsList.status === Status.pending) {
+    return (
       <div className="cards catalog__cards">
-        {catalogCardsData.length ? catalogCardsData.map((catalogCardData) => (
-          <div key={catalogCardData.id} className="product-card">
-            <div className="product-card__img">
-              <Picture
-                previewImgWebp = {catalogCardData.previewImgWebp} previewImgWebp2x = {catalogCardData.previewImgWebp2x}
-                previewImg = {catalogCardData.previewImg} previewImg2x = {catalogCardData.previewImg2x}
-                imageParams={{
-                  ...ImagesParams.catalogPage.productsList,
-                  alt: catalogCardData.name
-                }}
-              />
-            </div>
-            <div className="product-card__info">
-              <div className="rate product-card__rate">
-                <Rating rating={catalogCardData.rating}/>
-                <p className="visually-hidden">Рейтинг: {catalogCardData.rating}</p>
-                <p className="rate__count"><span className="visually-hidden">Всего оценок:</span>{catalogCardData.reviewCount}</p>
-              </div>
-              <p className="product-card__title">{catalogCardData.name}</p>
-              <p className="product-card__price"><span className="visually-hidden">Цена:</span>{catalogCardData.price} ₽
-              </p>
-            </div>
-            <div className="product-card__buttons">
-              <button
-                className="btn btn--purple product-card__btn"
-                type="button"
-                onClick={() => buyButtonClickHandler(catalogCardData)}
-              >Купить
-              </button>
-              <Link className="btn btn--transparent" to={RouterPaths.product(catalogCardData.id)}>Подробнее
-              </Link>
-            </div>
-          </div>
-        )) : <div className="title title--h5">По вашему запросу ничего не найдено</div>}
+        <LoadingSpinner/>
       </div>
-      <CatalogPagination listLength={filteredByPriceArray.length}/>
-    </>
-  );
+    );
+  } else if (productsList.status === Status.rejected) {
+    return (
+      <div className="cards catalog__cards">
+        <div className="title title--h5">Ошибка: {StatusMessages.productsListRejected}</div>
+      </div>
+    );
+  } else {
+    return (
+      <>
+        <div className="cards catalog__cards">
+          {catalogCardsData.length ? catalogCardsData.map((catalogCardData) => (
+            <div key={catalogCardData.id} className="product-card">
+              <div className="product-card__img">
+                <Picture
+                  previewImgWebp = {catalogCardData.previewImgWebp} previewImgWebp2x = {catalogCardData.previewImgWebp2x}
+                  previewImg = {catalogCardData.previewImg} previewImg2x = {catalogCardData.previewImg2x}
+                  imageParams={{
+                    ...ImagesParams.catalogPage.productsList,
+                    alt: catalogCardData.name
+                  }}
+                />
+              </div>
+              <div className="product-card__info">
+                <div className="rate product-card__rate">
+                  <Rating rating={catalogCardData.rating}/>
+                  <p className="visually-hidden">Рейтинг: {catalogCardData.rating}</p>
+                  <p className="rate__count"><span className="visually-hidden">Всего оценок:</span>{catalogCardData.reviewCount}</p>
+                </div>
+                <p className="product-card__title">{catalogCardData.name}</p>
+                <p className="product-card__price"><span className="visually-hidden">Цена:</span>{catalogCardData.price} ₽
+                </p>
+              </div>
+              <div className="product-card__buttons">
+                <button
+                  className="btn btn--purple product-card__btn"
+                  type="button"
+                  onClick={() => buyButtonClickHandler(catalogCardData)}
+                >Купить
+                </button>
+                <Link className="btn btn--transparent" to={RouterPaths.product(catalogCardData.id)}>Подробнее
+                </Link>
+              </div>
+            </div>
+          )) : <div className="title title--h5">По вашему запросу ничего не найдено</div>}
+        </div>
+        <CatalogPagination listLength={filteredByPriceArray.length}/>
+      </>
+    );
+  }
 }

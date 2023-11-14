@@ -62,10 +62,22 @@ type DataInitialStateType = {
     data: ProductData[];
     status: Status;
   };
-  similarList: ProductData[];
-  promoList: PromoData[];
-  product: ProductData | null;
-  reviewsList: ReviewData[];
+  similarList: {
+    data: ProductData[];
+    status: Status;
+  };
+  promoList: {
+    data: PromoData[];
+    status: Status;
+  };
+  product: {
+    data: ProductData;
+    status: Status;
+  };
+  reviewsList: {
+    data: ReviewData[];
+    status: Status;
+  };
 }
 type StatesInitialStateType = {
   popup: JSX.Element | false;
@@ -102,11 +114,45 @@ export const dataInitialState: DataInitialStateType = {
         'previewImgWebp2x': 'img/content/das-auge@2x.webp'
       }
     ],
-    status: Status.downloaded
+    status: Status.default
   },
-  similarList: [
-    {
-      'id': 1,
+  similarList: {
+    data: [
+      {
+        'id': 1,
+        'name': 'Ретрокамера Dus Auge lV',
+        'vendorCode': 'DA4IU67AD5',
+        'type': ProductType['Коллекционная'],
+        'category': ProductCategory['Видеокамера'],
+        'description': 'Немецкий концерн BRW разработал видеокамеру Das Auge IV в начале 80-х годов, однако она до сих пор пользуется популярностью среди коллекционеров и яростных почитателей старинной техники.',
+        'level': ProductLevel['Нулевой'],
+        'price': 65000,
+        'rating': 5,
+        'reviewCount': 16,
+        'previewImg': 'img/content/das-auge.jpg',
+        'previewImg2x': 'img/content/das-auge@2x.jpg',
+        'previewImgWebp': 'img/content/das-auge.webp',
+        'previewImgWebp2x': 'img/content/das-auge@2x.webp'
+      }
+    ],
+    status: Status.default
+  },
+  promoList: {
+    data: [
+      {
+        id: 1,
+        name: 'Ретрокамера Dus Auge lV',
+        previewImg: 'img/content/promo.jpg',
+        previewImgWebp2x: 'img/content/promo@2x.webp',
+        previewImg2x: 'img/content/promo@2x.jpg',
+        previewImgWebp: 'img/content/promo.webp',
+      }
+    ],
+    status: Status.default
+  },
+  product: {
+    data: {
+      'id': -1,
       'name': 'Ретрокамера Dus Auge lV',
       'vendorCode': 'DA4IU67AD5',
       'type': ProductType['Коллекционная'],
@@ -120,44 +166,22 @@ export const dataInitialState: DataInitialStateType = {
       'previewImg2x': 'img/content/das-auge@2x.jpg',
       'previewImgWebp': 'img/content/das-auge.webp',
       'previewImgWebp2x': 'img/content/das-auge@2x.webp'
-    }
-  ],
-  promoList: [
-    {
-      id: 1,
-      name: 'Ретрокамера Dus Auge lV',
-      previewImg: 'img/content/promo.jpg',
-      previewImgWebp2x: 'img/content/promo@2x.webp',
-      previewImg2x: 'img/content/promo@2x.jpg',
-      previewImgWebp: 'img/content/promo.webp',
-    }
-  ],
-  product: {
-    'id': -1,
-    'name': 'Ретрокамера Dus Auge lV',
-    'vendorCode': 'DA4IU67AD5',
-    'type': ProductType['Коллекционная'],
-    'category': ProductCategory['Видеокамера'],
-    'description': 'Немецкий концерн BRW разработал видеокамеру Das Auge IV в начале 80-х годов, однако она до сих пор пользуется популярностью среди коллекционеров и яростных почитателей старинной техники.',
-    'level': ProductLevel['Нулевой'],
-    'price': 65000,
-    'rating': 5,
-    'reviewCount': 16,
-    'previewImg': 'img/content/das-auge.jpg',
-    'previewImg2x': 'img/content/das-auge@2x.jpg',
-    'previewImgWebp': 'img/content/das-auge.webp',
-    'previewImgWebp2x': 'img/content/das-auge@2x.webp'
+    },
+    status: Status.default
   },
-  reviewsList: [
-    {
-      'id': 'f1d10ddd-2a21-4f71-9e1e-5f511703fbdd',
-      'createAt': '2022-07-09T13:24:57.980Z',
-      'cameraId': 1,
-      'userName': 'Кирилл',
-      'advantage': 'Легкая в плане веса, удобная в интерфейсе',
-      'disadvantage': 'Быстро садиться зарядка',
-      'review': 'Это моя первая камера. Я в восторге, нареканий нет',
-      'rating': 5
-    }
-  ]
+  reviewsList: {
+    data: [
+      {
+        'id': 'f1d10ddd-2a21-4f71-9e1e-5f511703fbdd',
+        'createAt': '2022-07-09T13:24:57.980Z',
+        'cameraId': 1,
+        'userName': 'Кирилл',
+        'advantage': 'Легкая в плане веса, удобная в интерфейсе',
+        'disadvantage': 'Быстро садиться зарядка',
+        'review': 'Это моя первая камера. Я в восторге, нареканий нет',
+        'rating': 5
+      }
+    ],
+    status: Status.default
+  }
 };
