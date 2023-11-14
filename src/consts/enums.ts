@@ -1,3 +1,4 @@
+
 export enum ReducerNameSpaces {
   states = 'STATES',
   data = 'DATA'
@@ -46,7 +47,17 @@ export enum SortType {
 
 export enum Status {
   default = 'default',
-  downloaded = 'downloaded'
+  downloaded = 'downloaded',
+  pending = 'pending',
+  rejected = 'rejected'
+}
+
+export enum StatusMessages {
+  productsListRejected = 'Список товаров недоступен',
+  similarListRejected = 'Список похожих товаров недоступен',
+  productRejected = 'Данные товара недоступны',
+  promoListRejected = 'Специальные предложения недоступны',
+  reviewsListRejected = 'Отзывы недоступны',
 }
 
 export const LocalizeFilterNames = {

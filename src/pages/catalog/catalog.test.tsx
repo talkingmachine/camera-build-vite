@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
-import { CatalogPage } from './catalog';
+import CatalogPage from './catalog';
 import { Provider } from 'react-redux';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { dataInitialState, statesInitialState } from '../../consts/global';
