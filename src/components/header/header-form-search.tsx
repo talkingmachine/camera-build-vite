@@ -5,6 +5,7 @@ import { ChangeEvent, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { RouterPaths } from '../../consts/router-paths';
 import { getSearchedProducts } from '../../utils/get-searched-products';
+import { FormEvent } from 'react';
 
 export function HeaderFormSearch ():JSX.Element {
 
@@ -29,10 +30,13 @@ export function HeaderFormSearch ():JSX.Element {
     setSearchText('');
     setIsSelectListShown(false);
   };
+  const formSubmitHandler = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  };
 
   return(
     <div className={classNames('form-search', {'list-opened': isSelectListShown && filteredProducts.length})}>
-      <form>
+      <form onSubmit={formSubmitHandler}>
         <label>
           <svg className="form-search__icon" width={16} height={16} aria-hidden="true">
             <use xlinkHref="#icon-lens" />
@@ -58,6 +62,7 @@ export function HeaderFormSearch ():JSX.Element {
         className="form-search__reset"
         type="reset"
         onClick={clearButtonClickHandler}
+        data-testid="searchResetButton"
       >
         <IconClose/>
         <span className="visually-hidden">Сбросить поиск</span>
