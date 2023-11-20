@@ -10,9 +10,10 @@ type PriceField = {
 
 type componentProps = {
   control: Control<FiltersFormInputs>;
+  formChangeHandler: () => void;
 }
 
-export function CatalogAsideFilterPrice ({control}: componentProps) {
+export function CatalogAsideFilterPrice ({control, formChangeHandler}: componentProps) {
 
   const priceLimiters = useAppSelector((state) => state.STATES.filterPriceLimiters);
   const priceFields = {
@@ -27,6 +28,7 @@ export function CatalogAsideFilterPrice ({control}: componentProps) {
       defaultValue: ['']
     }).field,
   };
+
 
   const priceChangeHandler = (e: ChangeEvent<HTMLInputElement>, mode: keyof PriceField) => {
     let newValue: string | number = e.target.value;
@@ -50,9 +52,11 @@ export function CatalogAsideFilterPrice ({control}: componentProps) {
       priceFields[mode].onChange([newValue]);
       return;
     }
-
     if (mode === 'min' && Number(newValue) < priceLimiters.min) {
       newValue = priceLimiters.min;
+    }
+    if (mode === 'min' && Number(priceFields.max.value[0]) < Number(newValue)) {
+      priceFields.max.onChange([newValue]);
     }
     if (mode === 'max' && Number(newValue) > priceLimiters.max) {
       newValue = priceLimiters.max;
@@ -61,9 +65,8 @@ export function CatalogAsideFilterPrice ({control}: componentProps) {
       newValue = Number(priceFields.min.value[0]);
     }
 
-    if (newValue !== (e.target.value)) {
-      priceFields[mode].onChange([newValue]);
-    }
+    priceFields[mode].onChange([newValue]);
+    formChangeHandler();
   };
 
   return (
@@ -77,7 +80,7 @@ export function CatalogAsideFilterPrice ({control}: componentProps) {
               value={priceFields.min.value}
               onChange={(e) => priceChangeHandler(e, 'min')}
               onBlur={(e) => priceBlurHandler(e, 'min')}
-              placeholder={`от ${priceLimiters.min}`}
+              placeholder={priceLimiters.min.toString()}
             />
           </label>
         </div>
@@ -88,7 +91,7 @@ export function CatalogAsideFilterPrice ({control}: componentProps) {
               value={priceFields.max.value}
               onChange={(e) => priceChangeHandler(e, 'max')}
               onBlur={(e) => priceBlurHandler(e, 'max')}
-              placeholder={`до ${priceLimiters.max}`}
+              placeholder={priceLimiters.max.toString()}
             />
           </label>
         </div>

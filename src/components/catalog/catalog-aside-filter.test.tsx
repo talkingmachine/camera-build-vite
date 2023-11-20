@@ -28,8 +28,8 @@ describe('Component: CatalogAsideFilter', () => {
     );
     const form = {
       price: {
-        min: screen.getByPlaceholderText<HTMLInputElement>(/^от.*/i),
-        max: screen.getByPlaceholderText<HTMLInputElement>(/^до.*/i)
+        min: screen.getByPlaceholderText<HTMLInputElement>(minLimiter),
+        max: screen.getByPlaceholderText<HTMLInputElement>(maxLimiter)
       },
       category: {
         [ProductCategory['Видеокамера']]: screen.getByLabelText<HTMLInputElement>(ProductCategory['Видеокамера']),
@@ -106,7 +106,7 @@ describe('Component: CatalogAsideFilter', () => {
       fireEvent.blur(form.price.max);
       fireEvent.blur(form.price.min);
       expect(form.price.max).toHaveValue('0');
-      expect(form.price.min).toHaveValue(minLimiter.toString());
+      expect(form.price.min).toHaveValue('');
     });
     it('should update max, if max less then min', () => {
       const {form} = setup();

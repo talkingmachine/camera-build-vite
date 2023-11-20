@@ -7,7 +7,7 @@ describe('Utils', () => {
   describe('getBreadcrumbsData', () => {
     it('should return breadcrumbs data for catalog page', () => {
       const expectedBreadcrumbsData = [
-        { name: 'Главная', path: '#', isLast: false },
+        { name: 'Главная', path: '/', isLast: false },
         { name: 'Каталог', path: '/', isLast: true }
       ];
 
@@ -16,7 +16,7 @@ describe('Utils', () => {
 
     it('should return breadcrumbs data for product page', () => {
       const expectedBreadcrumbsData = [
-        { name: 'Главная', path: '#', isLast: false },
+        { name: 'Главная', path: '/', isLast: false },
         { name: 'Каталог', path: '/', isLast: false },
         { name: 'FastShot MR-5', path: '/product/2', isLast: true }
       ];
