@@ -95,6 +95,7 @@ export function HeaderFormSearch ():JSX.Element {
         type="reset"
         onClick={clearButtonClickHandler}
         data-testid="searchResetButton"
+        style={{display: searchText.length ? 'flex' : 'none'}}
       >
         <IconClose/>
         <span className="visually-hidden">Сбросить поиск</span>

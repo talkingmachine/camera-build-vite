@@ -1,10 +1,16 @@
 .swiper-pagination-bullet{
-  background: white !important;
+  background: #F4F4FC !important;
+  margin-right: 13px !important;
+  opacity: 1 !important;
+  width: 16px !important;
+  height: 16px !important;
+}
+.swiper-pagination-bullet-active{
+  background: #7575E2 !important;
 }
 .swiper-pagination-bullets{
-  width: 10% !important;
-  left: initial !important;
   right: 0 !important;
+  margin: 0 15px 15px 0 !important;
 }
 .product-similar .product-card {
   max-width: 280px;
@@ -46,7 +52,4 @@
   color: #dddddd;
   background-color: #f8f8f8;
   pointer-events: none;
-}
-.form-search__reset {
-  display: flex;
 }
