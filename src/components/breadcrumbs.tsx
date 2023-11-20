@@ -14,7 +14,7 @@ export const Breadcrumbs:React.FC<BreadcrumbsProps> = ({productPageInfo}: Breadc
   return (
     <ul className="breadcrumbs__list">
       {breadcrumbsData.map((breadcrumb) => (
-        <li key={breadcrumb.path} className="breadcrumbs__item">
+        <li key={breadcrumb.name} className="breadcrumbs__item">
           {breadcrumb.isLast ?
             <span className="breadcrumbs__link breadcrumbs__link--active">{breadcrumb.name}</span> :
             <Link className="breadcrumbs__link" to={breadcrumb.path}>{breadcrumb.name}

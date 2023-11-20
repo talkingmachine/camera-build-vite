@@ -16,24 +16,24 @@ export const CatalogPagination:React.FC<CatalogPaginationProps> = ({listLength}:
   const changePageHandler = (evt: React.MouseEvent<HTMLAnchorElement, MouseEvent>, changeType: 'prev'|'next'|'target', target: null | number = null) => {
     evt.preventDefault();
     if (paginationInfo) {
-      let searchParam: string;
+      let searchParam: number;
       switch (changeType) {
         case 'next':
-          searchParam = (paginationInfo.pageNumbers[paginationInfo.pageNumbers.length - 1] + 1).toString();
+          searchParam = (paginationInfo.pageNumbers[paginationInfo.pageNumbers.length - 1] + 1);
           break;
         case 'prev':
-          searchParam = (paginationInfo.pageNumbers[0] - 1).toString();
+          searchParam = (paginationInfo.pageNumbers[0] - 1);
           break;
         case 'target':
           if (target) {
-            searchParam = target.toString();
+            searchParam = target;
           } else {
             throw Error('target page number is null');
           }
           break;
       }
       setSearchParams((prevParams) => {
-        prevParams.set('page', searchParam);
+        prevParams.set('page', searchParam.toString());
         return prevParams;
       });
     }

@@ -24,9 +24,15 @@ export function CatalogAsideFilter ():JSX.Element {
 
     for (const key in values) {
       const value = values[key as keyof FiltersFormInputs];
-      if (value[0]) {
+      if (value && value[0]) {
         newParams[key] = value;
       }
+    }
+    if (searchParams.has('sortType')) {
+      newParams['sortType'] = [searchParams.get('sortType') as string];
+    }
+    if (searchParams.has('sortDirection')) {
+      newParams['sortDirection'] = [searchParams.get('sortDirection') as string];
     }
     setSearchParams(newParams);
   };
@@ -51,7 +57,6 @@ export function CatalogAsideFilter ():JSX.Element {
     return categoryField ? categoryField[0] === FormFilter.category.videocamera : false;
   };
 
-
   useEffect(() => {
     for (const key in getValues()) {
       const value = searchParams.getAll(key);
@@ -66,7 +71,7 @@ export function CatalogAsideFilter ():JSX.Element {
     <div className="catalog-filter">
       <form action="#" onChange={formChangeHandler}>
         <h2 className="visually-hidden">Фильтр</h2>
-        <CatalogAsideFilterPrice control={control}/>
+        <CatalogAsideFilterPrice control={control} formChangeHandler={formChangeHandler}/>
         <fieldset className="catalog-filter__block">
           <legend className="title title--h5">Категория</legend>
           <div className="custom-checkbox catalog-filter__item">

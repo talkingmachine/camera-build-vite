@@ -1,6 +1,6 @@
 export const RouterPaths = {
   catalog: ():string => '/',
-  product: (id: number):string => `/product/${id}`,
+  product: (id: number | string):string => `/product/${id}`,
   productWithAnyId: ():string => '/product/:id',
   productWithoutId: ():string => '/product',
   notFound: ():string => '*',

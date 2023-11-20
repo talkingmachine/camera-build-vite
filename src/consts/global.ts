@@ -1,6 +1,7 @@
 import { ProductData, PromoData, ReviewData } from '../types/data-types';
 import { BreadcrumbData } from '../types/state-types';
 import { ProductCategory, ProductLevel, ProductType, Status } from './enums';
+import { RouterPaths } from './router-paths';
 
 export const PRODUCTS_PER_PAGE = 9;
 export const PAGES_PER_ROW = 3;
@@ -53,7 +54,7 @@ export const ImagesParams = {
 
 export const defaultBreadcrumbData: BreadcrumbData = {
   name: 'Главная',
-  path: '#',
+  path: RouterPaths.catalog(),
   isLast: true,
 };
 

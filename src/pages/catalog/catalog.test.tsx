@@ -8,7 +8,6 @@ import { dataInitialState, statesInitialState } from '../../consts/global';
 
 describe('Component: Catalog', () => {
   const mockStore = configureMockStore();
-
   it('should render correctly', () => {
     const expectedTitleText = 'Каталог фото- и видеотехники';
     const expectedSortText = 'Сортировать:';
@@ -16,6 +15,7 @@ describe('Component: Catalog', () => {
       DATA: dataInitialState,
       STATES: statesInitialState,
     });
+
     render(
       <Provider store={store}>
         <BrowserRouter>

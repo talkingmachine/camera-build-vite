@@ -1,3 +1,4 @@
+import { useSearchParams } from 'react-router-dom';
 import { Breadcrumbs } from '../../components/breadcrumbs';
 import { CatalogAsideFilter } from '../../components/catalog/catalog-aside-filter';
 import { CatalogBanner } from '../../components/catalog/catalog-banner';
@@ -5,8 +6,24 @@ import { CatalogProductsList } from '../../components/catalog/catalog-products-l
 import { CatalogSort } from '../../components/catalog/catalog-sort';
 import { Footer } from '../../components/footer';
 import { Header } from '../../components/header/header';
+import { useEffect } from 'react';
 
 export default function CatalogPage ():JSX.Element {
+
+  const [, setSearchParams] = useSearchParams();
+  useEffect(() => {
+    const observer = new PerformanceObserver((list) => {
+      list.getEntries().forEach((entry) => {
+        if ((entry as {type?: string}).type as string === 'reload') {
+          setSearchParams();
+        }
+      });
+    });
+
+    observer.observe({ type: 'navigation', buffered: true });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <div className="wrapper">
       <Header/>

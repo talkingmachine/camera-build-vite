@@ -1,16 +1,18 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useAppDispatch } from '../../hooks/typed-wrappers';
 import { IconSort } from '../icon-components/icon-sort';
 import { SortDirection, SortType } from '../../consts/enums';
 import { sortProductsList } from '../../store/actions';
+import { useSearchParams } from 'react-router-dom';
 
 export function CatalogSort ():JSX.Element {
 
   const dispatch = useAppDispatch();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [sortType, setSortType] = useState<SortType | null>(null);
   const [sortDirection, setSortDirection] = useState<SortDirection | null>(null);
 
-  const changeSortTypeHandler = (newSortType: SortType) => {
+  const updateSortType = (newSortType: SortType) => {
     setSortType(newSortType);
     if (!sortDirection) {
       setSortDirection(SortDirection.Ascending);
@@ -21,16 +23,60 @@ export function CatalogSort ():JSX.Element {
     }));
   };
 
-  const changeSortDirectionHandler = (newSortDirection: SortDirection) => {
+  const updateSortDirection = (newSortDirection: SortDirection) => {
     setSortDirection(newSortDirection);
     if (!sortType) {
       setSortType(SortType.Price);
     }
     dispatch(sortProductsList({
-      sortType: sortType ? sortType : SortType.Price ,
+      sortType: sortType ? sortType : SortType.Price,
       sortDirection: newSortDirection
     }));
   };
+
+  const changeSortTypeHandler = (newSortType: SortType) => {
+    updateSortType(newSortType);
+    setSearchParams((prevParams) => {
+      prevParams.set('sortType', newSortType);
+      return prevParams;
+    });
+  };
+
+  const changeSortDirectionHandler = (newSortDirection: SortDirection) => {
+    updateSortDirection(newSortDirection);
+    setSearchParams((prevParams) => {
+      prevParams.set('sortDirection', newSortDirection.toString());
+      return prevParams;
+    });
+  };
+
+  useEffect(() => {
+    const sortTypeParam = searchParams.get('sortType');
+    const sortDirectionParam = searchParams.get('sortDirection');
+    if (!(sortTypeParam || sortDirectionParam)) {
+      setSortType(null);
+      setSortDirection(null);
+    } else {
+      const newSortType = sortTypeParam ? sortTypeParam as SortType : null;
+      const newSortDirection = sortDirectionParam ? Number(sortDirectionParam) : null;
+      if (newSortType) {
+        setSortType(newSortType);
+        if (!sortDirection) {
+          setSortDirection(SortDirection.Ascending);
+        }
+      }
+      if (newSortDirection) {
+        setSortDirection(newSortDirection);
+        if (!sortType) {
+          setSortType(SortType.Price);
+        }
+      }
+      dispatch(sortProductsList({
+        sortType: newSortType ? newSortType : SortType.Price,
+        sortDirection: newSortDirection ? newSortDirection : SortDirection.Ascending
+      }));
+    }
+  }, [dispatch, searchParams, sortDirection, sortType]);
 
   return (
     <div className="catalog-sort">
