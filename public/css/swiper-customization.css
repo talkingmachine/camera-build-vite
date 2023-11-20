@@ -9,8 +9,10 @@
   background: #7575E2 !important;
 }
 .swiper-pagination-bullets{
+  width: 100px !important;
+  left: initial !important;
   right: 0 !important;
-  margin: 0 15px 15px 0 !important;
+  margin: 0 25px 15px 0 !important;
 }
 .product-similar .product-card {
   max-width: 280px;
