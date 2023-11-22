@@ -55,6 +55,9 @@ export function CatalogAsideFilterPrice ({control, formChangeHandler}: component
     if (mode === 'min' && Number(newValue) < priceLimiters.min) {
       newValue = priceLimiters.min;
     }
+    if (mode === 'min' && Number(newValue) > priceLimiters.max) {
+      newValue = priceLimiters.max;
+    }
     if (mode === 'min' && Number(priceFields.max.value[0]) < Number(newValue)) {
       priceFields.max.onChange([newValue]);
     }
