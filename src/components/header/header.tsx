@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { RouterPaths } from '../../consts/router-paths';
 import { HeaderFormSearch } from './header-form-search';
+import { IconBasket } from '../icon-components/icon-basket';
 
 export function Header ():JSX.Element {
 
@@ -26,11 +27,9 @@ export function Header ():JSX.Element {
           </ul>
         </nav>
         <HeaderFormSearch/>
-        <a className="header__basket-link" href="#">
-          <svg width={16} height={16} aria-hidden="true">
-            <use xlinkHref="#icon-basket" />
-          </svg>
-        </a>
+        <Link className="header__basket-link" to={RouterPaths.basket()}>
+          <IconBasket/>
+        </Link>
       </div>
     </header>
   );

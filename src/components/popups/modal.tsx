@@ -1,10 +1,11 @@
+import classNames from 'classnames';
 import { useAppDispatch, useAppSelector } from '../../hooks/typed-wrappers';
 import { removeModal } from '../../store/actions';
 
 export function Modal ():JSX.Element {
 
   const dispatch = useAppDispatch();
-  const popup = useAppSelector((state) => state.STATES.popup);
+  const popupInfo = useAppSelector((state) => state.STATES.popupInfo);
 
   const modalRemoveHandler = (evt: React.KeyboardEvent<HTMLElement> | React.MouseEvent<HTMLElement>) => {
     if ('key' in evt) {
@@ -16,13 +17,17 @@ export function Modal ():JSX.Element {
     }
   };
 
-  if (popup) {
+  if (popupInfo.popup) {
     document.body.style.overflow = 'hidden';
+
     return (
-      <div className="modal is-active" onKeyDown={modalRemoveHandler}>
+      <div
+        className={classNames('modal is-active', {'modal--narrow': popupInfo.isNarrow})}
+        onKeyDown={modalRemoveHandler}
+      >
         <div className="modal__wrapper">
           <div className="modal__overlay" onClick={modalRemoveHandler}/>
-          {popup}
+          {popupInfo.popup}
         </div>
       </div>);
   } else {

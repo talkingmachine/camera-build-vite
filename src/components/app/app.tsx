@@ -9,6 +9,7 @@ import { ToastContainer } from 'react-toastify';
 
 const ProductPage = lazy(() => import ('../../pages/product/product'));
 const CatalogPage = lazy(() => import ('../../pages/catalog/catalog'));
+const BasketPage = lazy(() => import ('../../pages/basket/basket'));
 
 export function App ():JSX.Element {
   return (
@@ -23,6 +24,10 @@ export function App ():JSX.Element {
         <Route
           path={RouterPaths.productWithAnyId()}
           element={<Suspense fallback={<LoadingSpinner/>}><ProductPage/></Suspense>}
+        />
+        <Route
+          path={RouterPaths.basket()}
+          element={<Suspense fallback={<LoadingSpinner/>}><BasketPage/></Suspense>}
         />
         <Route path={RouterPaths.notFound()} element={<NotFoundPage/>}/>
       </Routes>
