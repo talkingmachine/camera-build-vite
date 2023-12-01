@@ -81,19 +81,27 @@ type DataInitialStateType = {
   };
 }
 type StatesInitialStateType = {
-  popup: JSX.Element | false;
+  popupInfo: {
+    popup: JSX.Element | false;
+    isNarrow: boolean;
+  };
   filterPriceLimiters: {
     min: number;
     max: number;
   };
+  productsInBasket: Set<number>;
 }
 
 export const statesInitialState: StatesInitialStateType = {
-  popup: false,
+  popupInfo: {
+    popup: false,
+    isNarrow: false,
+  },
   filterPriceLimiters: {
     min: 0,
     max: 0
-  }
+  },
+  productsInBasket: new Set()
 };
 export const dataInitialState: DataInitialStateType = {
   productsList: {

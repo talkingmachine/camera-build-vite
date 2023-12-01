@@ -1,5 +1,6 @@
 export const RouterPaths = {
   catalog: ():string => '/',
+  basket: ():string => '/basket',
   product: (id: number | string):string => `/product/${id}`,
   productWithAnyId: ():string => '/product/:id',
   productWithoutId: ():string => '/product',
@@ -7,5 +8,6 @@ export const RouterPaths = {
 };
 
 export const RouterPathsNames = {
-  [RouterPaths.catalog()]: 'Каталог'
+  [RouterPaths.catalog()]: 'Каталог',
+  [RouterPaths.basket()]: 'Корзина'
 };

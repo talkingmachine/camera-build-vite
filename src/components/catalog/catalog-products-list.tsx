@@ -14,11 +14,13 @@ import { getPriceLimiters } from '../../utils/get-info-from-products';
 import { useEffect } from 'react';
 import { Status, StatusMessages } from '../../consts/enums';
 import { LoadingSpinner } from '../loading-spinner';
+import { IconBasket } from '../icon-components/icon-basket';
 
 export function CatalogProductsList ():JSX.Element {
 
   const dispatch = useAppDispatch();
   const productsList = useAppSelector((state) => state.DATA.productsList);
+  const productsInBasket = useAppSelector((state) => state.STATES.productsInBasket);
   const [searchParams] = useSearchParams();
   const currentPage = +(searchParams.get('page') || 1);
 
@@ -74,12 +76,20 @@ export function CatalogProductsList ():JSX.Element {
                 </p>
               </div>
               <div className="product-card__buttons">
-                <button
-                  className="btn btn--purple product-card__btn"
-                  type="button"
-                  onClick={() => buyButtonClickHandler(catalogCardData)}
-                >Купить
-                </button>
+                {productsInBasket.has(catalogCardData.id) ?
+                  <Link
+                    className="btn btn--purple-border product-card__btn product-card__btn--in-cart"
+                    to={RouterPaths.basket()}
+                  >
+                    <IconBasket/>
+                    В корзине
+                  </Link> :
+                  <button
+                    className="btn btn--purple product-card__btn"
+                    type="button"
+                    onClick={() => buyButtonClickHandler(catalogCardData)}
+                  >Купить
+                  </button>}
                 <Link className="btn btn--transparent" to={RouterPaths.product(catalogCardData.id)}>Подробнее
                 </Link>
               </div>
