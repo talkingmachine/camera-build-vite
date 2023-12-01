@@ -4,7 +4,6 @@ import { addToBasket, removeFromBasket, removeModal, setFilterPriceLimiters, set
 import { statesInitialState } from '../../consts/global';
 
 
-
 export const statesSlice = createSlice({
   name: ReducerNameSpaces.states,
   initialState: statesInitialState,
