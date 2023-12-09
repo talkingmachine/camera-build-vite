@@ -16,6 +16,12 @@ export const Basket = new class {
     this._updateStorageData();
   }
 
+  setItem(id: number, value: number) {
+    localStorage.setItem(id.toString(), value.toString());
+    ///
+    this._updateStorageData();
+  }
+
   getLength() {
     let length = 0;
     for (let i = 0; i < localStorage.length; i++) {
