@@ -2,8 +2,23 @@ import { Link } from 'react-router-dom';
 import { RouterPaths } from '../../consts/router-paths';
 import { HeaderFormSearch } from './header-form-search';
 import { IconBasket } from '../icon-components/icon-basket';
+import { Basket } from '../../store/local-storage';
+import { useEffect, useState } from 'react';
 
 export function Header ():JSX.Element {
+
+  const [basketCount, setBasketCount] = useState(Basket.getLength());
+
+  const updateHeader = () => {
+    setBasketCount(Basket.getLength());
+  };
+
+  useEffect(() => {
+    window.addEventListener('onStorage', updateHeader);
+    return () => {
+      window.removeEventListener('onStorage', updateHeader);
+    };
+  });
 
   return (
     <header className="header" id="header">
@@ -29,6 +44,8 @@ export function Header ():JSX.Element {
         <HeaderFormSearch/>
         <Link className="header__basket-link" to={RouterPaths.basket()}>
           <IconBasket/>
+          {basketCount ? <span className="header__basket-count">{basketCount}</span>
+            : false}
         </Link>
       </div>
     </header>

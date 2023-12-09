@@ -89,7 +89,6 @@ type StatesInitialStateType = {
     min: number;
     max: number;
   };
-  productsInBasket: Set<number>;
 }
 
 export const statesInitialState: StatesInitialStateType = {
@@ -101,7 +100,6 @@ export const statesInitialState: StatesInitialStateType = {
     min: 0,
     max: 0
   },
-  productsInBasket: new Set()
 };
 export const dataInitialState: DataInitialStateType = {
   productsList: {

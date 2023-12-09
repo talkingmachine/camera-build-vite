@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks/typed-wrappers';
 import { removeModal } from '../../store/actions';
 import { IconClose } from '../icon-components/icon-close';
@@ -9,12 +9,20 @@ export const PopupAddItemSuccess = () => {
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+
 
   const closePopupHandler = () => {
     dispatch(removeModal());
   };
   const toBasketClickHandler = () => {
     navigate(RouterPaths.basket());
+    closePopupHandler();
+  };
+  const continueButtonHandler = () => {
+    if (location.pathname !== RouterPaths.catalog()) {
+      navigate(RouterPaths.catalog());
+    }
     closePopupHandler();
   };
 
@@ -34,14 +42,13 @@ export const PopupAddItemSuccess = () => {
         <use xlinkHref="#icon-success" />
       </svg>
       <div className="modal__buttons">
-        <Link
+        <a
           className="btn btn--transparent modal__btn"
-          to={RouterPaths.catalog()}
           tabIndex={2}
           ref={focusElements.firstFocusElement}
-          onClick={closePopupHandler}
+          onClick={continueButtonHandler}
         >Продолжить покупки
-        </Link>
+        </a>
         <button
           className="btn btn--purple modal__btn modal__btn--fit-width"
           tabIndex={3}

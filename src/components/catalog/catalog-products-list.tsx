@@ -11,31 +11,45 @@ import { Picture } from '../picture';
 import { ImagesParams, PRODUCTS_PER_PAGE } from '../../consts/global';
 import { getFilteredProducts } from '../../utils/get-filtered-products';
 import { getPriceLimiters } from '../../utils/get-info-from-products';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Status, StatusMessages } from '../../consts/enums';
 import { LoadingSpinner } from '../loading-spinner';
 import { IconBasket } from '../icon-components/icon-basket';
+import { Basket } from '../../store/local-storage';
 
 export function CatalogProductsList ():JSX.Element {
 
   const dispatch = useAppDispatch();
   const productsList = useAppSelector((state) => state.DATA.productsList);
-  const productsInBasket = useAppSelector((state) => state.STATES.productsInBasket);
   const [searchParams] = useSearchParams();
   const currentPage = +(searchParams.get('page') || 1);
 
   const [filteredArray, filteredByPriceArray] = getFilteredProducts(productsList.data, searchParams);
   const catalogCardsData = productsDataToCatalogList(filteredByPriceArray, currentPage, PRODUCTS_PER_PAGE);
 
+  const [productsInBasket, setProductsInBasket] = useState<{[key: number]: number}>(Basket.getItems());
+
   const buyButtonClickHandler = (catalogCardData: CatalogCardData) => {
     dispatch(showModal(<PopupAddItem catalogCardData={catalogCardData}/>));
   };
+
+  const updateButtons = () => {
+    setProductsInBasket(Basket.getItems());
+  };
+
+  useEffect(() => {
+    window.addEventListener('onStorage', updateButtons);
+    return () => {
+      window.removeEventListener('onStorage', updateButtons);
+    };
+  });
 
   useEffect(() => {
     dispatch(setFilterPriceLimiters(
       getPriceLimiters(filteredArray)
     ));
   }, [dispatch, filteredArray, productsList.status]);
+
 
   if (productsList.status === Status.pending) {
     return (
@@ -76,7 +90,7 @@ export function CatalogProductsList ():JSX.Element {
                 </p>
               </div>
               <div className="product-card__buttons">
-                {productsInBasket.has(catalogCardData.id) ?
+                {productsInBasket[catalogCardData.id] ?
                   <Link
                     className="btn btn--purple-border product-card__btn product-card__btn--in-cart"
                     to={RouterPaths.basket()}

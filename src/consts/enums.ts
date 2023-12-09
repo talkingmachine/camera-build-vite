@@ -29,6 +29,11 @@ export enum ProductCategory {
   'Фотоаппарат' = 'Фотоаппарат'
 }
 
+export enum BasketProductsCategory {
+  'Видеокамера' = 'видеокамера',
+  'Фотоаппарат' = 'фотокамера'
+}
+
 export enum ProductLevel {
   'Нулевой' = 'Нулевой',
   'Любительский' = 'Любительский',
