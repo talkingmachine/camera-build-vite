@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { ReducerNameSpaces } from '../../consts/enums';
-import { addToBasket, removeFromBasket, removeModal, setFilterPriceLimiters, setNarrow, showModal } from '../actions';
+import { removeModal, setFilterPriceLimiters, setNarrow, showModal } from '../actions';
 import { statesInitialState } from '../../consts/global';
 
 
@@ -23,12 +23,6 @@ export const statesSlice = createSlice({
       })
       .addCase(setFilterPriceLimiters, (state, action) => {
         state.filterPriceLimiters = action.payload;
-      })
-      .addCase(addToBasket, (state, action) => {
-        state.productsInBasket.add(action.payload);
-      })
-      .addCase(removeFromBasket, (state, action) => {
-        state.productsInBasket.delete(action.payload);
       });
   },
 });

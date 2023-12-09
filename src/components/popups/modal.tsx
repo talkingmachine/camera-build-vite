@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import { useAppDispatch, useAppSelector } from '../../hooks/typed-wrappers';
 import { removeModal } from '../../store/actions';
+import { getScrollbarWidth } from '../../utils/utils';
 
 export function Modal ():JSX.Element {
 
@@ -18,8 +19,9 @@ export function Modal ():JSX.Element {
   };
 
   if (popupInfo.popup) {
-    document.body.style.overflow = 'hidden';
-
+    const padding = getScrollbarWidth();
+    document.body.style.overflowY = 'hidden';
+    document.body.style.paddingRight = `${padding}px`;
     return (
       <div
         className={classNames('modal is-active', {'modal--narrow': popupInfo.isNarrow})}
@@ -31,7 +33,8 @@ export function Modal ():JSX.Element {
         </div>
       </div>);
   } else {
-    document.body.style.overflow = 'scroll';
+    document.body.style.overflowY = 'scroll';
+    document.body.style.paddingRight = '0';
     return (
       <>
       </>);

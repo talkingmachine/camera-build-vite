@@ -1,13 +1,14 @@
 import { useRef } from 'react';
 import { ImagesParams } from '../../consts/global';
 import { useAppDispatch } from '../../hooks/typed-wrappers';
-import { addToBasket, removeModal, setNarrow, showModal } from '../../store/actions';
+import { removeModal, setNarrow, showModal } from '../../store/actions';
 import { CatalogCardData } from '../../types/data-types';
 import { formatTypeAndCategory } from '../../utils/data-formatting';
 import { IconAddBasket } from '../icon-components/icon-add-basket';
 import { IconClose } from '../icon-components/icon-close';
 import { Picture } from '../picture';
 import { PopupAddItemSuccess } from './popup-add-item-success';
+import { Basket } from '../../store/local-storage';
 
 
 type PopupAddItemProps = {
@@ -26,8 +27,8 @@ export const PopupAddItem:React.FC<PopupAddItemProps> = ({catalogCardData}: Popu
   };
 
   const addItemClickHandler = () => {
+    Basket.addItem(catalogCardData.id);
     dispatch(showModal(<PopupAddItemSuccess/>));
-    dispatch(addToBasket(catalogCardData.id));
     dispatch(setNarrow());
   };
 
