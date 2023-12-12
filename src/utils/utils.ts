@@ -3,6 +3,7 @@ import { defaultBreadcrumbData, messages } from '../consts/global';
 import { RouterPaths, RouterPathsNames } from '../consts/router-paths';
 import { CatalogCardData, ProductData } from '../types/data-types';
 import { BreadcrumbData } from '../types/state-types';
+import { formatPrice } from './data-formatting';
 
 
 export const getBreadcrumbsData = (pathname: string, productPageInfo: CatalogCardData | undefined) => {
@@ -64,3 +65,14 @@ export const getScrollbarWidth = () => {
   return scrollbarWidth;
   // https://stackoverflow.com/questions/13382516/getting-scroll-bar-width-using-javascript/13382873#13382873
 };
+
+export const getDiscount = (price: number, discount: number) => {
+  const res = price * (discount / 100);
+  return formatPrice(Math.round(res));
+};
+
+export const getPriceWithDiscount = (price: number, discount: number) => {
+  const res = price * (discount / 100);
+  return formatPrice(price - Math.round(res));
+};
+

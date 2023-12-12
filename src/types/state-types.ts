@@ -12,6 +12,15 @@ export type ImageParams = {
   alt: string;
 }
 
+export type CouponData = {
+  coupon: string;
+}
+
+export type BasketData = {
+  camerasIds: number[];
+  coupon?: string | null;
+}
+
 export type FiltersFormInputs = {
   [key in keyof typeof FormFilter]: string[];
 }

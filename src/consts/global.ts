@@ -1,3 +1,4 @@
+import { Basket } from '../store/local-storage';
 import { ProductData, PromoData, ReviewData } from '../types/data-types';
 import { BreadcrumbData } from '../types/state-types';
 import { ProductCategory, ProductLevel, ProductType, Status } from './enums';
@@ -10,6 +11,7 @@ export const SIMILAR_PRODUCTS_PER_PAGE = 3;
 export const REVIEWS_PER_PAGE = 3;
 export const REVIEW_SYMBOLS = {min: 2, max: 160};
 export const APP_NAME = 'Фотошоп';
+export const PROMOS = ['camera-333', 'camera-444', 'camera-555'];
 
 
 export const getRatingNumbersArray = Array.from({length: STARS_NUMBER}, (_, index) => index + 1);
@@ -89,6 +91,8 @@ type StatesInitialStateType = {
     min: number;
     max: number;
   };
+  couponCheckStatus: Status;
+  postOrderStatus: Status;
 }
 
 export const statesInitialState: StatesInitialStateType = {
@@ -100,6 +104,8 @@ export const statesInitialState: StatesInitialStateType = {
     min: 0,
     max: 0
   },
+  couponCheckStatus: Basket.getPromoDiscount() ? Status.downloaded : Status.default,
+  postOrderStatus: Status.default
 };
 export const dataInitialState: DataInitialStateType = {
   productsList: {
