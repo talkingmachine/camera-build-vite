@@ -4,6 +4,7 @@ import { AppDispatch, ProductData, PromoData, ReviewData, ReviewPostData, State 
 import { APIRoutes } from '../consts/api-routes';
 import { showRejectedMessage } from '../utils/get-error-messages';
 import { StatusMessages } from '../consts/enums';
+import { BasketData, CouponData } from '../types/state-types';
 
 type ThunkConfig = {
   dispatch: AppDispatch;
@@ -82,6 +83,29 @@ export const postReview = createAsyncThunk<ReviewData, {reviewPostData: ReviewPo
     try {
       const {data} = await api.post<ReviewData>(APIRoutes.PostReview(), reviewPostData);
       return data;
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  }
+);
+
+export const checkCoupons = createAsyncThunk<number, {couponData: CouponData}, ThunkConfig>(
+  'CHECK_COUPONS',
+  async ({couponData}, {extra: api, rejectWithValue}) => {
+    try {
+      const {data} = await api.post<number>(APIRoutes.CheckCoupons(), couponData);
+      return data;
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  }
+);
+
+export const postOrder = createAsyncThunk<void, {basketData: BasketData}, ThunkConfig>(
+  'POST_ORDER',
+  async ({basketData}, {extra: api, rejectWithValue}) => {
+    try {
+      await api.post(APIRoutes.PostOrder(), basketData);
     } catch (err) {
       return rejectWithValue(err);
     }

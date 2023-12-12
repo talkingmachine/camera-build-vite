@@ -11,9 +11,9 @@ import { ProductData } from '../../types/data-types';
 
 export default function BasketList ():JSX.Element {
 
+  const dispatch = useAppDispatch();
   const productsList = useAppSelector((state) => state.DATA.productsList.data);
   const basketItems = productsList.filter((product) => Basket.getItem(product.id));
-  const dispatch = useAppDispatch();
 
   const [basketItemsCount, setBasketItemsCount] = useState<{[key: number]: number | ''}>(Basket.getItems());
 

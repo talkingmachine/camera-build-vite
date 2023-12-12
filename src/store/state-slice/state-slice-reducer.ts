@@ -1,7 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { ReducerNameSpaces } from '../../consts/enums';
-import { removeModal, setFilterPriceLimiters, setNarrow, showModal } from '../actions';
+import { ReducerNameSpaces, Status } from '../../consts/enums';
+import { removeModal, resetPostOrderStatus, setFilterPriceLimiters, setNarrow, showModal } from '../actions';
 import { statesInitialState } from '../../consts/global';
+import { checkCoupons, postOrder } from '../api-actions';
+import { Basket } from '../local-storage';
 
 
 export const statesSlice = createSlice({
@@ -23,6 +25,25 @@ export const statesSlice = createSlice({
       })
       .addCase(setFilterPriceLimiters, (state, action) => {
         state.filterPriceLimiters = action.payload;
+      })
+      .addCase(checkCoupons.fulfilled, (state, action) => { // checkCoupons
+        Basket.setPromoDiscount(action.payload);
+        state.couponCheckStatus = Status.downloaded;
+      })
+      .addCase(checkCoupons.rejected, (state) => {
+        Basket.removePromoDiscount();
+        Basket.removePromo();
+        state.couponCheckStatus = Status.rejected;
+      })
+      .addCase(postOrder.fulfilled, (state) => { // postOrder
+        state.postOrderStatus = Status.downloaded;
+        state.couponCheckStatus = Status.default;
+      })
+      .addCase(postOrder.rejected, (state) => {
+        state.postOrderStatus = Status.rejected;
+      })
+      .addCase(resetPostOrderStatus, (state) => {
+        state.postOrderStatus = Status.default;
       });
   },
 });
