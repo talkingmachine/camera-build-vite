@@ -88,6 +88,7 @@ export default function BasketList ():JSX.Element {
             <button
               className="btn-icon btn-icon--prev"
               aria-label="уменьшить количество товара"
+              data-testid='basketRemoveItem'
               onClick={() => buttonRemoveClickHandler(basketItem.id)}
               disabled={!Number(basketItemsCount[basketItem.id]) ||
                 basketItemsCount[basketItem.id] as number <= 1}
@@ -98,6 +99,7 @@ export default function BasketList ():JSX.Element {
             <input
               type="number"
               id="counter1"
+              data-testid='basketCountInput'
               value={basketItemsCount[basketItem.id].toString()}
               min={1}
               max={99}
@@ -108,6 +110,7 @@ export default function BasketList ():JSX.Element {
             <button
               className="btn-icon btn-icon--next"
               aria-label="увеличить количество товара"
+              data-testid='basketAddItem'
               onClick={() => buttonAddClickHandler(basketItem.id)}
               disabled={!Number(basketItemsCount[basketItem.id]) ||
                 basketItemsCount[basketItem.id] as number >= 99}
