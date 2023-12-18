@@ -7,10 +7,10 @@ import { useEffect, useState } from 'react';
 
 export function Header ():JSX.Element {
 
-  const [basketCount, setBasketCount] = useState(Basket.getLength());
+  const [basketCount, setBasketCount] = useState(Basket.getBasketData().camerasIds.length);
 
   const updateHeader = () => {
-    setBasketCount(Basket.getLength());
+    setBasketCount(Basket.getBasketData().camerasIds.length);
   };
 
   useEffect(() => {

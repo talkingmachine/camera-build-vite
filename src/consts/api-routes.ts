@@ -6,5 +6,5 @@ export const APIRoutes = {
   GetProduct: (id: number):string => `/cameras/${id}`,
   GetReviewsList: (id: number):string => `/cameras/${id}/reviews`,
   CheckCoupons: ():string => '/coupons',
-  PostOrder: ():string => '/orde'
+  PostOrder: ():string => '/orders'
 };

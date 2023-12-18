@@ -47,10 +47,8 @@ export default function BasketSummaryOrder ():JSX.Element {
   useEffect(() => {
     if (postOrderStatus === Status.downloaded) {
       dispatch(showModal(<PopupBasketSuccess/>));
-      Basket.resetBasket();
-      Basket.removePromo();
-      Basket.removePromoDiscount();
       dispatch(resetPostOrderStatus());
+      Basket.resetBasket();
     } else if (postOrderStatus === Status.rejected) {
       dispatch(showModal(<PopupBasketReject/>));
       dispatch(resetPostOrderStatus());

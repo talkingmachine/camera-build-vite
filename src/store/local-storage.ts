@@ -69,6 +69,10 @@ export const Basket = new class {
 
   removeAllItems(id: number) {
     localStorage.removeItem(id.toString());
+    if (this.getLength() === 0) {
+      this.removePromo();
+      this.removePromoDiscount();
+    }
     ///
     this._updateStorageData();
   }
@@ -78,6 +82,8 @@ export const Basket = new class {
     for (const key in items) {
       localStorage.removeItem(key);
     }
+    this.removePromo();
+    this.removePromoDiscount();
     ///
     this._updateStorageData();
   }

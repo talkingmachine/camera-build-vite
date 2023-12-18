@@ -1,4 +1,4 @@
-import { FormEvent, useRef } from 'react';
+import { FormEvent, useEffect, useRef, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/typed-wrappers';
 import { checkCoupons } from '../../store/api-actions';
 import classNames from 'classnames';
@@ -10,6 +10,7 @@ export default function BasketPromo ():JSX.Element {
   const dispatch = useAppDispatch();
   const inputRef = useRef<HTMLInputElement>(null);
   const couponCheckStatus = useAppSelector((state) => state.STATES.couponCheckStatus);
+  const [promoDiscount, setPromoDiscount] = useState(Basket.getPromoDiscount());
 
   const buttonSubmitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -23,6 +24,16 @@ export default function BasketPromo ():JSX.Element {
       }));
     }
   };
+  const updatePromo = () => {
+    setPromoDiscount(Basket.getPromoDiscount());
+  };
+
+  useEffect(() => {
+    window.addEventListener('onPromo', updatePromo);
+    return () => {
+      window.removeEventListener('onPromo', updatePromo);
+    };
+  });
 
   return (
     <div className="basket__promo">
@@ -32,7 +43,7 @@ export default function BasketPromo ():JSX.Element {
           <div
             className={classNames(
               'custom-input',
-              {'is-valid': couponCheckStatus === Status.downloaded},
+              {'is-valid': promoDiscount && couponCheckStatus === Status.downloaded},
               {'is-invalid': couponCheckStatus === Status.rejected}
             )}
           >
