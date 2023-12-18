@@ -40,7 +40,7 @@ export default function BasketList ():JSX.Element {
     }));
   };
   const countBlurHandler = (e: FocusEvent<HTMLInputElement>, id: number) => {
-    let value = Number(e.target.value);
+    let value = Math.round(Number(e.target.value));
     if (!value || value < 1) {
       value = 1;
     }
